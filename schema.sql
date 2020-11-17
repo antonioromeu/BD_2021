@@ -1,12 +1,12 @@
-drop table regiao cascade;
-drop table concelho cascade;
-drop table instituicao cascade;
-drop table medico cascade;
-drop table consulta cascade;
-drop table prescricao cascade;
-drop table analise cascade;
-drop table venda_farmacia cascade;
 drop table prescricao_venda cascade;
+drop table prescricao cascade;
+drop table venda_farmacia cascade;
+drop table analise cascade;
+drop table consulta cascade;
+drop table instituicao cascade;
+drop table concelho cascade;
+drop table regiao cascade;
+drop table medico cascade;
 
 CREATE TABLE regiao (
     num_regiao INT NOT NULL,
@@ -47,14 +47,14 @@ CREATE TABLE medico (
 CREATE TABLE consulta (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
-    data_consulta INT NOT NULL CONSTRAINT RI_consulta_1
+    data_consulta DATE NOT NULL CONSTRAINT RI_consulta_1
         CHECK (EXTRACT(DOW FROM data_consulta) IN (1, 2, 3, 4, 5)),
     nome_instituicao VARCHAR(80) NOT NULL,
-    PRIMARY KEY(num_cedula, num_doente, data_consulta),
+    PRIMARY KEY (num_cedula, num_doente, data_consulta),
     FOREIGN KEY (num_cedula)
         REFERENCES medico(num_cedula),
-    FOREIGN KEY (num_doente)
-        REFERENCES instituicao(num_doente)
+    FOREIGN KEY (nome_instituicao)
+        REFERENCES instituicao(nome)
 );
 
 CREATE TABLE prescricao (
@@ -65,13 +65,14 @@ CREATE TABLE prescricao (
     quantidade DECIMAL NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_prescricao, substancia),
     FOREIGN KEY (num_cedula, num_doente, data_prescricao)
-        REFERENCES consulta(num_cedula, num_doente, data_prescricao)
+        REFERENCES consulta(num_cedula, num_doente, data_consulta)
 );
 
 CREATE TABLE analise (
     num_analise INT NOT NULL,
-    especialidade VARCHAR(40) CONSTRAINT RI_analise
-        CHECK (especialidade IN (SELECT medico(especialidade) FROM medico WHERE num_cedula = medico(num_cedula))),
+    especialidade VARCHAR(40),
+    -- CONSTRAINT RI_analise
+    --     CHECK (especialidade IN (SELECT medico(especialidade) FROM medico WHERE num_cedula = medico(num_cedula))),
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
     data_analise DATE NOT NULL,
@@ -80,7 +81,7 @@ CREATE TABLE analise (
     quant DECIMAL NOT NULL,
     inst VARCHAR(40) NOT NULL,
     PRIMARY KEY (num_analise),
-    FOREIGN KEY (num_cedula, num_doente, data_analise) REFERENCES consulta(num_cedula, num_analise, data_consulta),
+    FOREIGN KEY (num_cedula, num_doente, data_analise) REFERENCES consulta(num_cedula, num_doente, data_consulta),
     FOREIGN KEY (inst) REFERENCES instituicao(nome)
 );
 
