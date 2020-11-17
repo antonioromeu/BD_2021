@@ -47,10 +47,10 @@ CREATE TABLE medico (
 CREATE TABLE consulta (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
-    data_consulta DATE NOT NULL CONSTRAINT RI_consulta_1
-        CHECK (EXTRACT(DOW FROM data_consulta) IN (1, 2, 3, 4, 5)),
+    data_ DATE NOT NULL CONSTRAINT RI_consulta_1
+        CHECK (EXTRACT(DOW FROM data_) IN (1, 2, 3, 4, 5)),
     nome_instituicao VARCHAR(80) NOT NULL,
-    PRIMARY KEY (num_cedula, num_doente, data_consulta),
+    PRIMARY KEY (num_cedula, num_doente, data_),
     FOREIGN KEY (num_cedula)
         REFERENCES medico(num_cedula),
     FOREIGN KEY (nome_instituicao)
@@ -60,12 +60,12 @@ CREATE TABLE consulta (
 CREATE TABLE prescricao (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
-    data_prescricao DATE NOT NULL,
+    data_ DATE NOT NULL,
     substancia VARCHAR(40) NOT NULL,
     quantidade DECIMAL NOT NULL,
-    PRIMARY KEY (num_cedula, num_doente, data_prescricao, substancia),
-    FOREIGN KEY (num_cedula, num_doente, data_prescricao)
-        REFERENCES consulta(num_cedula, num_doente, data_consulta)
+    PRIMARY KEY (num_cedula, num_doente, data_, substancia),
+    FOREIGN KEY (num_cedula, num_doente, data_)
+        REFERENCES consulta(num_cedula, num_doente, data_)
 );
 
 CREATE TABLE analise (
@@ -75,13 +75,13 @@ CREATE TABLE analise (
     --     CHECK (especialidade IN (SELECT medico(especialidade) FROM medico WHERE num_cedula = medico(num_cedula))),
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
-    data_analise DATE NOT NULL,
+    data_ DATE NOT NULL,
     data_registo DATE NOT NULL,
     nome VARCHAR(40) NOT NULL,
     quant DECIMAL NOT NULL,
     inst VARCHAR(40) NOT NULL,
     PRIMARY KEY (num_analise),
-    FOREIGN KEY (num_cedula, num_doente, data_analise) REFERENCES consulta(num_cedula, num_doente, data_consulta),
+    FOREIGN KEY (num_cedula, num_doente, data_) REFERENCES consulta(num_cedula, num_doente, data_),
     FOREIGN KEY (inst) REFERENCES instituicao(nome)
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE venda_farmacia (
     num_venda INT NOT NULL,
     data_registo DATE NOT NULL,
     substancia VARCHAR(40) NOT NULL,
-    quant DECIMAL NOT NULL,
+    quant INT NOT NULL,
     preco DECIMAL NOT NULL,
     inst VARCHAR(80) NOT NULL,
     PRIMARY KEY (num_venda),
@@ -100,14 +100,14 @@ CREATE TABLE venda_farmacia (
 CREATE TABLE prescricao_venda (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
-    data_prescricao_venda DATE NOT NULL,
+    data_ DATE NOT NULL,
     substancia VARCHAR(40) NOT NULL,
     num_venda INT NOT NULL,
-    PRIMARY KEY (num_cedula, num_doente, data_prescricao_venda, substancia, num_venda),
+    PRIMARY KEY (num_cedula, num_doente, data_, substancia, num_venda),
     FOREIGN KEY (num_venda)
         REFERENCES venda_farmacia(num_venda),
-    FOREIGN KEY (num_cedula, num_doente, data_prescricao_venda, substancia)
-        REFERENCES prescricao(num_cedula, num_doente, data_prescricao, substancia)
+    FOREIGN KEY (num_cedula, num_doente, data_, substancia)
+        REFERENCES prescricao(num_cedula, num_doente, data_, substancia)
 );
 
 
