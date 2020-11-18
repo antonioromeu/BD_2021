@@ -20,7 +20,8 @@ def list_accounts():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         cursor.execute("SELECT * FROM account;")html = #TODO ..... A completar.....
         # return html #Renders the html string
-        return render_template("index.html", cursor = cursor).  # index.htmlè~/web/templates/ /index.htm
+        return render_template("index.html", cursor = cursor)  # index.htmlè~/web/templates/ /index.htm
+        return render_template("accounts.html", cursor = cursor) # index.htmlè~/web/templates/ /index.htm
     except Exception as e:
         # return e #Renders a page withthe error.
         return str(e) #Renders a page with the error.
