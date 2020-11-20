@@ -1,12 +1,23 @@
-drop table prescricao_venda cascade;
-drop table prescricao cascade;
-drop table venda_farmacia cascade;
-drop table analise cascade;
-drop table consulta cascade;
-drop table instituicao cascade;
-drop table concelho cascade;
-drop table regiao cascade;
-drop table medico cascade;
+DROP TABLE IF EXISTS prescricao_venda cascade;
+DROP TABLE IF EXISTS prescricao cascade;
+DROP TABLE IF EXISTS venda_farmacia cascade;
+DROP TABLE IF EXISTS analise cascade;
+DROP TABLE IF EXISTS consulta cascade;
+DROP TABLE IF EXISTS instituicao cascade;
+DROP TABLE IF EXISTS concelho cascade;
+DROP TABLE IF EXISTS regiao cascade;
+DROP TABLE IF EXISTS medico cascade;
+
+DROP TABLE IF EXISTS prescricoes_arouca;
+DROP TABLE IF EXISTS prescricoes_aviadas_ultimo_ano;
+DROP TABLE IF EXISTS farmacia_arouca;
+DROP TABLE IF EXISTS cidades_com_mais_vendas;
+DROP TABLE IF EXISTS todas_farmacias;
+DROP TABLE IF EXISTS todas_medicos;
+DROP TABLE IF EXISTS temp0;
+DROP TABLE IF EXISTS temp1;
+DROP TABLE IF EXISTS temp2;
+DROP TABLE IF EXISTS temp3;
 
 CREATE TABLE regiao (
     num_regiao INT NOT NULL,
@@ -17,8 +28,8 @@ CREATE TABLE regiao (
 );
 
 CREATE TABLE concelho (
-    num_concelho INT NOT NULL,
     num_regiao INT NOT NULL,
+    num_concelho INT NOT NULL,
     nome VARCHAR(80) NOT NULL,
     num_habitantes INT NOT NULL,
     PRIMARY KEY (num_concelho, num_regiao),
@@ -96,6 +107,7 @@ CREATE TABLE venda_farmacia (
     FOREIGN KEY (inst)
         REFERENCES instituicao(nome)
 );
+
 
 CREATE TABLE prescricao_venda (
     num_cedula INT NOT NULL,
