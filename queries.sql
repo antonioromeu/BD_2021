@@ -38,13 +38,10 @@ DROP TABLE IF EXISTS temp3 cascade;
 CREATE TABLE temp3 AS (SELECT num_regiao, MAX(COUNT) AS maxcount
     FROM temp2 GROUP BY num_regiao);
 
-DROP TABLE IF EXISTS medicos_em_regioes cascade;
 SELECT medico.nome, temp2.num_regiao FROM temp2, temp3, medico
     WHERE (temp2.num_regiao = temp3.num_regiao AND
     temp2.COUNT = temp3.maxcount AND
     medico.num_cedula = temp2.num_cedula);
-
-SELECT * FROM medicos_em_regioes;
 
 --- Q3 --- Quais são os médicos que já prescreveram aspirina em receitas aviadas em todas as farmácias do concelho de Arouca este ano?
 DROP TABLE IF EXISTS farmacia_arouca;
@@ -52,7 +49,10 @@ DROP TABLE IF EXISTS farmacia_arouca;
 CREATE TABLE farmacia_arouca AS (SELECT DISTINCT nome FROM instituicao
     WHERE instituicao.num_concelho = (SELECT num_concelho
         FROM concelho
-        WHERE concelho.nome = 'Arouca')
+        WHERE concelho.nome = 'AROUCA')
+    AND instituicao.num_regiao = (SELECT num_regiao
+        FROM concelho
+        WHERE concelho.nome = 'AROUCA')
     AND instituicao.tipo = 'farmacia');
 
 DROP TABLE IF EXISTS prescricoes_aviadas_ultimo_ano;
@@ -88,7 +88,7 @@ CREATE TABLE todos_medicos AS
 SELECT * FROM todos_medicos;
         
 --- Q4 --- Quais são os doentes que já fizeram análises mas ainda não aviaram prescrições este mês?
-SELECT num_doente FROM analise WHERE
+SELECT DISTINCT num_doente FROM analise WHERE
     (EXTRACT(month FROM current_date) = EXTRACT(month FROM analise.data_) AND
     EXTRACT(year FROM current_date) = EXTRACT(year FROM analise.data_) AND
     num_doente NOT IN

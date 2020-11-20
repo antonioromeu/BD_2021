@@ -51,7 +51,7 @@ CREATE TABLE instituicao (
 CREATE TABLE medico (
     num_cedula INT NOT NULL,
     nome VARCHAR(80) NOT NULL,
-    especialidade VARCHAR(40) NOT NULL,
+    especialidade VARCHAR(60) NOT NULL,
     PRIMARY KEY (num_cedula)
 );
 
@@ -72,8 +72,8 @@ CREATE TABLE prescricao (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
     data_ DATE NOT NULL,
-    substancia VARCHAR(40) NOT NULL,
-    quantidade DECIMAL NOT NULL,
+    substancia VARCHAR(60) NOT NULL,
+    quantidade INT NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_, substancia),
     FOREIGN KEY (num_cedula, num_doente, data_)
         REFERENCES consulta(num_cedula, num_doente, data_)
@@ -81,16 +81,16 @@ CREATE TABLE prescricao (
 
 CREATE TABLE analise (
     num_analise INT NOT NULL,
-    especialidade VARCHAR(40),
+    especialidade VARCHAR(60),
     -- CONSTRAINT RI_analise
     --     CHECK (especialidade IN (SELECT medico(especialidade) FROM medico WHERE num_cedula = medico(num_cedula))),
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
     data_ DATE NOT NULL,
     data_registo DATE NOT NULL,
-    nome VARCHAR(40) NOT NULL,
-    quant DECIMAL NOT NULL,
-    inst VARCHAR(40) NOT NULL,
+    nome VARCHAR(60) NOT NULL,
+    quant INT NOT NULL,
+    inst VARCHAR(60) NOT NULL,
     PRIMARY KEY (num_analise),
     FOREIGN KEY (num_cedula, num_doente, data_) REFERENCES consulta(num_cedula, num_doente, data_),
     FOREIGN KEY (inst) REFERENCES instituicao(nome)
@@ -99,7 +99,7 @@ CREATE TABLE analise (
 CREATE TABLE venda_farmacia (
     num_venda INT NOT NULL,
     data_registo DATE NOT NULL,
-    substancia VARCHAR(40) NOT NULL,
+    substancia VARCHAR(60) NOT NULL,
     quant INT NOT NULL,
     preco DECIMAL NOT NULL,
     inst VARCHAR(80) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE prescricao_venda (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
     data_ DATE NOT NULL,
-    substancia VARCHAR(40) NOT NULL,
+    substancia VARCHAR(60) NOT NULL,
     num_venda INT NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_, substancia, num_venda),
     FOREIGN KEY (num_venda)
