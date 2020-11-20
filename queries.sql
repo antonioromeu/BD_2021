@@ -1,47 +1,77 @@
 --- Q1 --- Qual o concelho onde se fez o maior volume de vendas hoje?
 DROP TABLE IF EXISTS temp1;
-CREATE TABLE temp1 AS (SELECT num_concelho, num_regiao, quant, preco
-    FROM instituicao NATURAL JOIN venda_farmacia
-    WHERE (instituicao.nome = venda_farmacia.inst
-    AND current_date = venda_farmacia.data_registo));
+CREATE TABLE temp1 AS
+(SELECT num_concelho,
+        num_regiao,
+        quant,
+        preco
+FROM    instituicao
+        NATURAL JOIN venda_farmacia
+WHERE   (instituicao.nome = venda_farmacia.inst AND
+        current_date = venda_farmacia.data_registo));
 
 DROP TABLE IF EXISTS temp2;
-CREATE TABLE temp2 AS (SELECT num_concelho, num_regiao, SUM(quant * preco)
-    FROM temp1 GROUP BY num_concelho, num_regiao);
+CREATE TABLE temp2 AS
+(SELECT num_concelho,
+        num_regiao,
+        SUM(quant * preco)
+FROM    temp1
+GROUP BY num_concelho, num_regiao);
 
 DROP TABLE IF EXISTS cidades_com_mais_vendas;
-CREATE TABLE cidades_com_mais_vendas AS (SELECT nome FROM concelho
-    WHERE num_concelho = (SELECT num_concelho FROM temp2
-        WHERE SUM = (SELECT MAX(SUM) FROM temp2)) 
-    AND num_regiao = (SELECT num_regiao FROM temp2
-        WHERE SUM = (SELECT MAX(SUM) FROM temp2)));
+CREATE TABLE cidades_com_mais_vendas AS
+(SELECT nome
+FROM concelho
+WHERE num_concelho = (SELECT num_concelho
+                    FROM temp2
+                    WHERE SUM = (SELECT MAX(SUM) FROM temp2)) AND
+                        num_regiao = (SELECT num_regiao FROM temp2
+                                    WHERE SUM = (SELECT MAX(SUM) FROM temp2)));
 
 SELECT * FROM cidades_com_mais_vendas;
 
 --- Q2 --- Qual o médico que mais prescreveu no 1º semestre de 2019 em cada região?
-DROP TABLE IF EXISTS temp1;
-CREATE TABLE temp1 AS
-    (SELECT num_cedula, num_regiao FROM prescricao NATURAL JOIN consulta
-    NATURAL JOIN instituicao WHERE
-    (prescricao.num_cedula = consulta.num_cedula AND
-    prescricao.data_ = consulta.data_ AND
-    prescricao.num_doente = consulta.num_doente AND
-    instituicao.nome = consulta.nome_instituicao AND
-    prescricao.data_ >= '2019-01-01' AND
-    prescricao.data_ <= '2019-06-30'));
-
-DROP TABLE IF EXISTS temp2;
-CREATE TABLE temp2 AS (SELECT num_regiao, num_cedula, COUNT(num_cedula)
-    FROM temp1 GROUP BY num_cedula, num_regiao);
-
 DROP TABLE IF EXISTS temp3 cascade;
-CREATE TABLE temp3 AS (SELECT num_regiao, MAX(COUNT) AS maxcount
-    FROM temp2 GROUP BY num_regiao);
+CREATE TABLE temp3 AS
+(SELECT num_regiao,
+        num_cedula,
+        count,
+        MAX(count) OVER (PARTITION BY num_regiao)
+FROM
+    (SELECT num_regiao, 
+            num_cedula, 
+            COUNT(num_cedula)
+    FROM 
+        (SELECT num_cedula,
+                num_regiao
+        FROM prescricao
+        NATURAL JOIN consulta
+        NATURAL JOIN instituicao
+        WHERE   (prescricao.num_cedula = consulta.num_cedula AND
+                prescricao.data_ = consulta.data_ AND
+                prescricao.num_doente = consulta.num_doente AND
+                instituicao.nome = consulta.nome_instituicao AND
+                prescricao.data_ >= '2019-01-01' AND
+                prescricao.data_ <= '2019-06-30'))
+        AS prescricoes_data_ok
+    GROUP BY num_cedula, num_regiao)
+AS cedula_counter);
 
-SELECT medico.nome, temp2.num_regiao FROM temp2, temp3, medico
-    WHERE (temp2.num_regiao = temp3.num_regiao AND
-    temp2.COUNT = temp3.maxcount AND
-    medico.num_cedula = temp2.num_cedula);
+
+SELECT  regiao.nome AS regiao,
+        regiao_medicos.nome AS medico,
+        regiao_medicos.count AS num_prescricoes
+FROM    
+    (SELECT temp3.num_regiao,
+            medico.nome,
+            temp3.count
+    FROM    temp3,
+            medico
+    WHERE   temp3.count = temp3.max AND
+            medico.num_cedula = temp3.num_cedula)
+    AS  regiao_medicos, 
+    regiao 
+WHERE   regiao.num_regiao = regiao_medicos.num_regiao;
 
 --- Q3 --- Quais são os médicos que já prescreveram aspirina em receitas aviadas em todas as farmácias do concelho de Arouca este ano?
 DROP TABLE IF EXISTS farmacia_arouca;

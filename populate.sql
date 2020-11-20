@@ -295,12 +295,12 @@ INSERT INTO instituicao VALUES ('Farmacia Anjos', 'farmacia', 1, 6);
 INSERT INTO instituicao VALUES ('Farmacia Baixa', 'farmacia', 1, 6);
 
 
-INSERT INTO instituicao VALUES ('Hospital dos Capuchos', 'hospital', 1, 6);
+INSERT INTO instituicao VALUES ('Hospital de Sao Joao', 'hospital', 2, 38);
 INSERT INTO instituicao VALUES ('Hospital Santa Maria', 'hospital', 1, 6);
 INSERT INTO instituicao VALUES ('CUF Tejo', 'hospital', 1, 6);
-INSERT INTO instituicao VALUES ('Hospital da Luz', 'hospital', 1, 6);
-INSERT INTO instituicao VALUES ('Centro Hospitalar e Universitario de Coimbra', 'hospital', 1, 6);
-INSERT INTO instituicao VALUES ('CUF Torres Vedras', 'hospital', 1, 13);
+INSERT INTO instituicao VALUES ('Hospital de Leiria', 'hospital', 3, 70);
+INSERT INTO instituicao VALUES ('Hospital de Beja', 'hospital', 4, 5);
+INSERT INTO instituicao VALUES ('Hospital de Faro', 'hospital', 5, 5);
 INSERT INTO instituicao VALUES ('Soerad', 'clinica', 1, 13);
 INSERT INTO instituicao VALUES ('Laboratorios Beatriz Godinho', 'clinica', 3, 70);
 
@@ -317,66 +317,66 @@ INSERT INTO medico VALUES (9, 'CUCA MONGA', 'psiquiatria');
 INSERT INTO medico VALUES (10, 'Maria Madalena', 'nutricionismo');
 
 
-INSERT INTO consulta VALUES (1, 1, '2019-02-01', 'Hospital dos Capuchos'); --- arouca   ano e mes alterado para 2019, semestre 1
-INSERT INTO consulta VALUES (4, 4, '2019-02-04', 'Hospital dos Capuchos');
+INSERT INTO consulta VALUES (1, 1, '2019-02-01', 'Hospital de Sao Joao'); --- arouca   ano e mes alterado para 2019, semestre 1
+INSERT INTO consulta VALUES (4, 4, '2019-02-04', 'Hospital de Sao Joao');
 INSERT INTO consulta VALUES (5, 5, '2019-02-05', 'CUF Tejo');
-INSERT INTO consulta VALUES (1, 6, '2019-02-06', 'Hospital da Luz'); --- arouca
-INSERT INTO consulta VALUES (2, 7, '2019-02-07', 'Centro Hospitalar e Universitario de Coimbra');
+INSERT INTO consulta VALUES (1, 6, '2019-02-06', 'Hospital de Leiria'); --- arouca
+INSERT INTO consulta VALUES (2, 7, '2019-02-07', 'Hospital de Beja');
 INSERT INTO consulta VALUES (3, 8, '2019-02-08', 'CUF Tejo');
-INSERT INTO consulta VALUES (1, 1, '2019-02-11', 'CUF Torres Vedras'); --- arouca
+INSERT INTO consulta VALUES (1, 1, '2019-02-11', 'Hospital de Faro'); --- arouca
 INSERT INTO consulta VALUES (3, 2, '2019-02-12', 'CUF Tejo');
-INSERT INTO consulta VALUES (5, 3, '2019-02-13', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (7, 4, '2019-02-14', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (9, 5, '2019-02-15', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (5, 3, '2019-02-18', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (7, 4, '2019-02-19', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (9, 5, '2019-03-20', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (1, 1, '2019-03-21', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (1, 2, '2019-03-22', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (5, 5, '2019-03-25', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (5, 1, '2019-03-26', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (7, 2, '2019-03-27', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (7, 3, '2019-03-28', 'CUF Torres Vedras');
+INSERT INTO consulta VALUES (5, 3, '2019-02-13', 'Hospital de Beja');
+INSERT INTO consulta VALUES (7, 4, '2019-02-14', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (9, 5, '2019-02-15', 'Hospital de Faro');
+INSERT INTO consulta VALUES (5, 3, '2019-02-18', 'Hospital de Faro');
+INSERT INTO consulta VALUES (7, 4, '2019-02-19', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (9, 5, '2019-03-20', 'Hospital de Faro');
+INSERT INTO consulta VALUES (1, 1, '2019-03-21', 'Hospital de Beja');
+INSERT INTO consulta VALUES (1, 2, '2019-03-22', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (5, 5, '2019-03-25', 'Hospital de Beja');
+INSERT INTO consulta VALUES (5, 1, '2019-03-26', 'Hospital de Faro');
+INSERT INTO consulta VALUES (7, 2, '2019-03-27', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (7, 3, '2019-03-28', 'Hospital de Faro');
 INSERT INTO consulta VALUES (9, 4, '2019-03-29', 'CUF Tejo');
-INSERT INTO consulta VALUES (9, 5, '2019-04-01', 'Hospital da Luz');
-INSERT INTO consulta VALUES (2, 1, '2019-04-02', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (2, 2, '2019-04-03', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (4, 3, '2019-04-04', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (4, 4, '2019-04-05', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (8, 2, '2019-04-08', 'Hospital da Luz');
-INSERT INTO consulta VALUES (8, 3, '2019-04-09', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (10, 4, '2019-06-10', 'Hospital dos Capuchos');
+INSERT INTO consulta VALUES (9, 5, '2019-04-01', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (2, 1, '2019-04-02', 'Hospital de Faro');
+INSERT INTO consulta VALUES (2, 2, '2019-04-03', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (4, 3, '2019-04-04', 'Hospital de Faro');
+INSERT INTO consulta VALUES (4, 4, '2019-04-05', 'Hospital de Faro');
+INSERT INTO consulta VALUES (8, 2, '2019-04-08', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (8, 3, '2019-04-09', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (10, 4, '2019-06-10', 'Hospital de Sao Joao');
 
 
-INSERT INTO consulta VALUES (1, 1, '2020-11-05', 'Hospital dos Capuchos'); --- arouca
+INSERT INTO consulta VALUES (1, 1, '2020-11-05', 'Hospital de Sao Joao'); --- arouca
 INSERT INTO consulta VALUES (2, 2, '2020-11-02', 'CUF Tejo');
-INSERT INTO consulta VALUES (3, 3, '2020-11-03', 'Hospital da Luz');
-INSERT INTO consulta VALUES (4, 4, '2020-11-04', 'Hospital dos Capuchos');
+INSERT INTO consulta VALUES (3, 3, '2020-11-03', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (4, 4, '2020-11-04', 'Hospital de Sao Joao');
 INSERT INTO consulta VALUES (5, 5, '2020-11-05', 'CUF Tejo');
-INSERT INTO consulta VALUES (1, 6, '2020-11-06', 'Hospital da Luz'); --- arouca
-INSERT INTO consulta VALUES (4, 9, '2020-11-09', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (6, 9, '2020-11-10', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (1, 1, '2020-11-11', 'CUF Torres Vedras'); --- arouca
+INSERT INTO consulta VALUES (1, 6, '2020-11-06', 'Hospital de Leiria'); --- arouca
+INSERT INTO consulta VALUES (4, 9, '2020-11-09', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (6, 9, '2020-11-10', 'Hospital de Beja');
+INSERT INTO consulta VALUES (1, 1, '2020-11-11', 'Hospital de Faro'); --- arouca
 INSERT INTO consulta VALUES (3, 2, '2020-11-12', 'CUF Tejo');
-INSERT INTO consulta VALUES (5, 3, '2020-11-13', 'Centro Hospitalar e Universitario de Coimbra');
+INSERT INTO consulta VALUES (5, 3, '2020-11-13', 'Hospital de Beja');
 INSERT INTO consulta VALUES (1, 7, '2020-11-16', 'CUF Tejo'); --- arouca
-INSERT INTO consulta VALUES (3, 2, '2020-11-17', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (5, 3, '2020-11-18', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (7, 4, '2020-11-19', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (9, 5, '2020-11-20', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (3, 3, '2020-11-23', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (3, 4, '2020-11-24', 'Hospital da Luz');
-INSERT INTO consulta VALUES (5, 5, '2020-11-25', 'Centro Hospitalar e Universitario de Coimbra');
-INSERT INTO consulta VALUES (5, 1, '2020-11-26', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (7, 2, '2020-11-27', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (9, 5, '2020-12-01', 'Hospital da Luz');
-INSERT INTO consulta VALUES (2, 1, '2020-12-02', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (2, 2, '2020-12-03', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (4, 3, '2020-12-04', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (6, 1, '2020-12-07', 'CUF Torres Vedras');
-INSERT INTO consulta VALUES (8, 2, '2020-12-08', 'Hospital da Luz');
-INSERT INTO consulta VALUES (8, 3, '2020-12-09', 'Hospital dos Capuchos');
-INSERT INTO consulta VALUES (10, 4, '2020-12-10', 'Hospital dos Capuchos');
+INSERT INTO consulta VALUES (3, 2, '2020-11-17', 'Hospital de Beja');
+INSERT INTO consulta VALUES (5, 3, '2020-11-18', 'Hospital de Faro');
+INSERT INTO consulta VALUES (7, 4, '2020-11-19', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (9, 5, '2020-11-20', 'Hospital de Faro');
+INSERT INTO consulta VALUES (3, 3, '2020-11-23', 'Hospital de Faro');
+INSERT INTO consulta VALUES (3, 4, '2020-11-24', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (5, 5, '2020-11-25', 'Hospital de Beja');
+INSERT INTO consulta VALUES (5, 1, '2020-11-26', 'Hospital de Faro');
+INSERT INTO consulta VALUES (7, 2, '2020-11-27', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (9, 5, '2020-12-01', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (2, 1, '2020-12-02', 'Hospital de Faro');
+INSERT INTO consulta VALUES (2, 2, '2020-12-03', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (4, 3, '2020-12-04', 'Hospital de Faro');
+INSERT INTO consulta VALUES (6, 1, '2020-12-07', 'Hospital de Faro');
+INSERT INTO consulta VALUES (8, 2, '2020-12-08', 'Hospital de Leiria');
+INSERT INTO consulta VALUES (8, 3, '2020-12-09', 'Hospital de Sao Joao');
+INSERT INTO consulta VALUES (10, 4, '2020-12-10', 'Hospital de Sao Joao');
 
 
 INSERT INTO prescricao VALUES (1, 1, '2019-02-01', 'aspirina', 1); --- vender em arouca
@@ -397,29 +397,29 @@ INSERT INTO prescricao VALUES (3, 3, '2020-11-23', 'aspirina', 5); --- vender em
 INSERT INTO prescricao VALUES (3, 4, '2020-11-24', 'cetrizina', 6);
 
 
-INSERT INTO analise VALUES (1, 'obstretricia', 9, 5, '2020-12-01', '2020-12-02', 'Analise ao sangue', 1, 'CUF Torres Vedras');
-INSERT INTO analise VALUES (2, 'medicina familiar', 2, 1, '2020-12-02', '2020-12-04', 'Analise ao sangue', 2, 'Hospital da Luz');
+INSERT INTO analise VALUES (1, 'obstretricia', 9, 5, '2020-12-01', '2020-12-02', 'Analise ao sangue', 1, 'Hospital de Faro');
+INSERT INTO analise VALUES (2, 'medicina familiar', 2, 1, '2020-12-02', '2020-12-04', 'Analise ao sangue', 2, 'Hospital de Leiria');
 INSERT INTO analise VALUES (3, 'medicina familiar', 2, 2, '2020-12-03', '2020-12-03', 'Analise ao sangue', 32, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (4, 'medicina familiar', 2, 2, '2020-11-02', '2020-11-03', 'Analise ao sangue', 4, 'Hospital dos Capuchos');
+INSERT INTO analise VALUES (4, 'medicina familiar', 2, 2, '2020-11-02', '2020-11-03', 'Analise ao sangue', 4, 'Hospital de Sao Joao');
 INSERT INTO analise VALUES (5, 'medicina alternativa', 3, 3, '2020-11-03', '2020-11-05', 'Analise ao sangue', 5, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (6, 'urologia', 4, 4, '2020-11-04', '2020-11-06', 'Analise ao sangue', 63, 'Centro Hospitalar e Universitario de Coimbra');
+INSERT INTO analise VALUES (6, 'urologia', 4, 4, '2020-11-04', '2020-11-06', 'Analise ao sangue', 63, 'Hospital de Beja');
 INSERT INTO analise VALUES (7, 'bundalogia', 5, 5, '2020-11-05', '2020-11-05', 'Analise ao sangue', 17, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (8, 'dermatologista', 1, 6, '2020-11-06', '2020-11-08', 'Analise ao sangue', 8, 'CUF Torres Vedras');
+INSERT INTO analise VALUES (8, 'dermatologista', 1, 6, '2020-11-06', '2020-11-08', 'Analise ao sangue', 8, 'Hospital de Faro');
 INSERT INTO analise VALUES (9, 'urologia', 4, 9, '2020-11-09', '2020-11-10', 'Analise ao sangue', 29, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (10, 'dermatologista', 6, 9, '2020-11-10', '2020-11-12', 'Analise ao sangue', 10, 'Hospital dos Capuchos');
-INSERT INTO analise VALUES (11, 'obstretricia', 1, 1, '2020-11-11', '2020-11-11', 'Analise ao sangue', 11, 'Hospital dos Capuchos');
+INSERT INTO analise VALUES (10, 'dermatologista', 6, 9, '2020-11-10', '2020-11-12', 'Analise ao sangue', 10, 'Hospital de Sao Joao');
+INSERT INTO analise VALUES (11, 'obstretricia', 1, 1, '2020-11-11', '2020-11-11', 'Analise ao sangue', 11, 'Hospital de Sao Joao');
 INSERT INTO analise VALUES (12, 'medicina alternativa', 3, 2, '2020-11-12', '2020-11-15', 'Analise ao sangue', 1, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (13, 'bundalogia', 5, 3, '2020-11-13', '2020-11-15', 'Analise ao sangue', 1, 'Centro Hospitalar e Universitario de Coimbra');
+INSERT INTO analise VALUES (13, 'bundalogia', 5, 3, '2020-11-13', '2020-11-15', 'Analise ao sangue', 1, 'Hospital de Beja');
 INSERT INTO analise VALUES (14, 'obstretricia', 1, 7, '2020-11-16', '2020-11-16', 'Analise ao sangue', 1, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (15, 'medicina alternativa', 3, 2, '2020-11-17', '2020-11-16', 'Analise ao sangue', 1, 'Hospital dos Capuchos');
-INSERT INTO analise VALUES (16, 'bundalogia', 5, 3, '2020-11-18', '2020-11-16', 'Analise ao sangue', 1, 'CUF Torres Vedras');
+INSERT INTO analise VALUES (15, 'medicina alternativa', 3, 2, '2020-11-17', '2020-11-16', 'Analise ao sangue', 1, 'Hospital de Sao Joao');
+INSERT INTO analise VALUES (16, 'bundalogia', 5, 3, '2020-11-18', '2020-11-16', 'Analise ao sangue', 1, 'Hospital de Faro');
 INSERT INTO analise VALUES (17, 'badbitchlogia', 7, 4, '2020-11-19', '2020-11-20', 'Analise ao sangue', 1, 'CUF Tejo');
 INSERT INTO analise VALUES (18, 'psiquiatria', 9, 5, '2020-11-20', '2020-11-22', 'Analise ao sangue', 1, 'CUF Tejo');
-INSERT INTO analise VALUES (19, 'medicina alternativa', 3, 3, '2020-11-23', '2020-11-26', 'Analise ao sangue', 1, 'Hospital dos Capuchos');
+INSERT INTO analise VALUES (19, 'medicina alternativa', 3, 3, '2020-11-23', '2020-11-26', 'Analise ao sangue', 1, 'Hospital de Sao Joao');
 INSERT INTO analise VALUES (20, 'medicina alternativa', 3, 4, '2020-11-24', '2020-11-24', 'Analise ao sangue', 1, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (21, 'bundalogia', 5, 5, '2020-11-25', '2020-11-25', 'Analise ao sangue', 1, 'Centro Hospitalar e Universitario de Coimbra');
+INSERT INTO analise VALUES (21, 'bundalogia', 5, 5, '2020-11-25', '2020-11-25', 'Analise ao sangue', 1, 'Hospital de Beja');
 INSERT INTO analise VALUES (22, 'bundalogia', 5, 1, '2020-11-26', '2020-11-27', 'Analise ao sangue', 1, 'Hospital Santa Maria');
-INSERT INTO analise VALUES (23, 'badbitchlogia', 7, 2, '2020-11-27', '2020-11-29', 'Analise ao sangue', 1, 'CUF Torres Vedras');
+INSERT INTO analise VALUES (23, 'badbitchlogia', 7, 2, '2020-11-27', '2020-11-29', 'Analise ao sangue', 1, 'Hospital de Faro');
 
 
 INSERT INTO venda_farmacia VALUES (1, '2019-02-01', 'aspirina', 1, 1.5, 'Farmacia Gomes de Pinho');
