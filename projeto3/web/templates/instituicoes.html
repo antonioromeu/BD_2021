@@ -1,0 +1,31 @@
+<html>
+<title>List instituicoes - Flask</title>
+<body style="padding:20px">
+    {% if cursor %}
+        <table border="2px">
+        <thead>
+            <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Regiao</th>
+            <th>Concelho</th>
+            <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>      
+            {% for record in cursor %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1] }}</td>
+                <td>{{ record[2] }}</td>
+                <td>{{ record[3] }}</td>
+                <td><a href="instituicao_editar?nome={{ record[0] }}">Editar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p> Erro: ao obter dados da base de dados!</p>
+    {% endif %}
+</body>
+</html>
