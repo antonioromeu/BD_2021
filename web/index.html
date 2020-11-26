@@ -11,6 +11,15 @@
         </style>
     </head>
     <body>
-        <h1>ola</h1>
+        <section id="medicos">
+            <h1>Medicos</h1>
+            <form method="POST" action="medicos_insert">
+                <h2>Inserir Medico</h2>
+                <input required type="number" name="cedula" placeholder="Numero cedula"/>
+                <input required type="text" name="nome" placeholder="Nome"/>
+                <input required type="text" name="especialidade" placeholder="Especialidade"/>
+                <input type="submit" value="Criar" />
+              </form>
+        </section>
     </body>
 </html>
