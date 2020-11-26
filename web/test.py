@@ -1,28 +1,28 @@
-#!/usr/bin/python3
-from wsgiref.handlers import CGIHandler
-from flask import Flaskimport psycopg2 # Libs postgres
-import psycopg2.extras
+# !/usr/bin/python3
+# coding: utf-8
 
-## SGBD configs
-# DB_HOST="db.tecnico.ulisboa.pt”;
-# DB_USER="istXXXXX" ;
-# DB_PASSWORD="ZZZZZ" DB_DATABASE=DB_USER;
-# DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_DATABASE, DB_USER, DB_PASSWORD)
+from​ wsgiref.handlers ​import​ CGIHandler
+from​ flask ​import​ Flask
+## Bibliotecas postgres
+import​ psycopg2
+import​ psycopg2.extras
+
+
+# SGBD configs
+DB_HOST="db.tecnico.ulisboa.pt”
+DB_USER="istXXXXX" 
+DB_PASSWORD="ZZZZZ" DB_DATABASE=DB_USER
+DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_DATABASE, DB_USER, DB_PASSWORD)
 app = Flask(__name__)
 
-@app.route('/')   # <test.cgi>
+@app.route('/') # <test.cgi>
 def medicos_insert():
-    # dbConn = None
-    # cursor = None
     title = "medicos insert"
-    try:
-        # dbConn = psycopg2.connect(DB_CONNECTION_STRING)
-        # cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        if request.method == "POST":
-            ced = request.form("cedula")
-            nome = request.form("nome")
-            esp = request.form("especialidade")
-            return nome
+    if request.method == "POST":
+        ced = request.form("cedula")
+        nome = request.form("nome")
+        esp = request.form("especialidade")
+        return nome
         
 
 # @app.route('/')   # <test.cgi>
