@@ -285,10 +285,10 @@ INSERT INTO concelho VALUES (5, 15, 'VILA DO BISPO', 21886);
 INSERT INTO concelho VALUES (5, 16, 'VILA REAL DE SANTO ANTONIO', 7253);
 
 
-INSERT INTO instituicao VALUES ('Farmacia Gomes de Pinho', 'farmacia', 3, 4);
-INSERT INTO instituicao VALUES ('Farmacia Santo Antonio', 'farmacia', 3, 4);
-INSERT INTO instituicao VALUES ('Farmacia Brandao Alves', 'farmacia', 3, 4);
-INSERT INTO instituicao VALUES ('Farmacia Cabral Brandao', 'farmacia', 3, 4);
+INSERT INTO instituicao VALUES ('Farmacia Gomes de Pinho', 'farmacia', 2, 78);
+INSERT INTO instituicao VALUES ('Farmacia Santo Antonio', 'farmacia', 2, 78);
+INSERT INTO instituicao VALUES ('Farmacia Brandao Alves', 'farmacia', 2, 78);
+INSERT INTO instituicao VALUES ('Farmacia Cabral Brandao', 'farmacia', 2, 78);
 INSERT INTO instituicao VALUES ('Farmacia Edite Rosa', 'farmacia', 1, 13);
 INSERT INTO instituicao VALUES ('Farmacia Alameda', 'farmacia', 1, 6);
 INSERT INTO instituicao VALUES ('Farmacia Anjos', 'farmacia', 1, 6);

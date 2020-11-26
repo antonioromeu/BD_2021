@@ -8,17 +8,6 @@ DROP TABLE IF EXISTS concelho cascade;
 DROP TABLE IF EXISTS regiao cascade;
 DROP TABLE IF EXISTS medico cascade;
 
-DROP TABLE IF EXISTS prescricoes_arouca;
-DROP TABLE IF EXISTS prescricoes_aviadas_ultimo_ano;
-DROP TABLE IF EXISTS farmacia_arouca;
-DROP TABLE IF EXISTS cidades_com_mais_vendas;
-DROP TABLE IF EXISTS todas_farmacias;
-DROP TABLE IF EXISTS todas_medicos;
-DROP TABLE IF EXISTS temp0;
-DROP TABLE IF EXISTS temp1;
-DROP TABLE IF EXISTS temp2;
-DROP TABLE IF EXISTS temp3;
-
 CREATE TABLE regiao (
     num_regiao INT NOT NULL,
     nome VARCHAR(80) NOT NULL CONSTRAINT RI_regiao_1
@@ -65,7 +54,8 @@ CREATE TABLE consulta (
     FOREIGN KEY (num_cedula)
         REFERENCES medico(num_cedula),
     FOREIGN KEY (nome_instituicao)
-        REFERENCES instituicao(nome)
+        REFERENCES instituicao(nome),
+    UNIQUE(num_doente, data_, nome_instituicao) -- RI_consulta_2
 );
 
 CREATE TABLE prescricao (
@@ -82,8 +72,6 @@ CREATE TABLE prescricao (
 CREATE TABLE analise (
     num_analise INT NOT NULL,
     especialidade VARCHAR(60),
-    -- CONSTRAINT RI_analise
-    --     CHECK (especialidade IN (SELECT medico(especialidade) FROM medico WHERE num_cedula = medico(num_cedula))),
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
     data_ DATE NOT NULL,
@@ -108,7 +96,6 @@ CREATE TABLE venda_farmacia (
         REFERENCES instituicao(nome)
 );
 
-
 CREATE TABLE prescricao_venda (
     num_cedula INT NOT NULL,
     num_doente INT NOT NULL,
@@ -121,9 +108,3 @@ CREATE TABLE prescricao_venda (
     FOREIGN KEY (num_cedula, num_doente, data_, substancia)
         REFERENCES prescricao(num_cedula, num_doente, data_, substancia)
 );
-
-
-    -- CONSTRAINT RI_consulta_2
-    --     CHECK (SELECT COUNT(*) FROM
-    --         (SELECT (num_doente = consulta(num_doente), data_consulta = consulta(data_consulta),
-    --         nome_instituicao = consulta(nome_instituicao)) FROM consulta)) < 1;
