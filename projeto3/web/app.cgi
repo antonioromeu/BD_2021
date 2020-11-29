@@ -151,14 +151,44 @@ def list_medicos():
         cursor.close()
         dbConn.close()
 
-@app.route('/prescricoes')
-def list_medicos():
+@app.route('/medicos_adicionar', methods=["POST"])
+def add_medicos():
+    try:
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("medicos_adicionar.html", params = form)
+    except Exception as e:
+        return str(e)
+
+@app.route('/medicos_adicionar_submit', methods=["POST"])
+def add_update_medicos():
     dbConn = None
     cursor = None
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        query = "SELECT * FROM prescricoes;"
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["novo_num_cedula"].value
+        nome = form["novo_nome"].value
+        especialidade = form["nova_especialidade"].value
+        query = "INSERT INTO medico VALUES (%s, %s, %s);"
+        data = (num_cedula, nome, especialidade)
+        cursor.execute(query, data)
+        return render_template("medicos_adicionar_submit.html", params = form)
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+@app.route('/prescricoes')
+def list_prescricoes():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        query = "SELECT * FROM prescricao;"
         cursor.execute(query)
         return render_template("prescricoes.html", cursor = cursor) #, params = request.args)
     except Exception as e:
@@ -166,15 +196,77 @@ def list_medicos():
     finally:
         cursor.close()
         dbConn.close()
-        
-@app.route('/analises')
-def list_medicos():
+
+@app.route('/prescricoes_adicionar', methods=["POST"])
+def add_prescricoes():
+    try:
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("prescricoes_adicionar.html", params = form)
+    except Exception as e:
+        return str(e)
+
+@app.route('/prescricoes_adicionar_submit', methods=["POST"])
+def add_update_prescricoes():
     dbConn = None
     cursor = None
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-        query = "SELECT * FROM analises;"
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["novo_num_cedula"].value
+        num_doente = form["novo_num_doente"].value
+        data = form["nova_data"].value
+        substancia = form["nova_substancia"].value
+        quantidade = form["nova_quantidade"].value
+        query = "INSERT INTO prescricao VALUES (%s, %s, %s, %s, %s);"
+        data = (num_cedula, num_doente, data, substancia, quantidade)
+        cursor.execute(query, data)
+        return render_template("prescricoes_adicionar_submit.html", params = form)
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+@app.route('/prescricoes_filtrar', methods=["POST"])
+def add_prescricoes_filtrar():
+    try:
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("prescricoes_filtrar.html", params = form)
+    except Exception as e:
+        return str(e)
+
+@app.route('/prescricoes_filtrar_submit', methods=["POST"])
+def list_prescricoes_filtrar_submit():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["novo_num_cedula"].value
+        data = form["nova_data"].value
+        query = "SELECT * FROM prescricao \
+            WHERE num_cedula = %s \
+            and data_ = %s;"
+        data = (num_cedula, data)
+        cursor.execute(query, data)
+        return render_template("prescricoes_filtrar_submit.html", cursor = cursor) #, params = request.args)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+@app.route('/analises')
+def list_analises():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        query = "SELECT * FROM analise;"
         cursor.execute(query)
         return render_template("analises.html", cursor = cursor) #, params = request.args)
     except Exception as e:

@@ -1,6 +1,22 @@
+<!-- <html>
+    <title>Informacao adicionada</title>
+    <body style="padding:20px">
+        <a href="instituicoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="instituicoes_adicionar_submit" method="post">
+            <h3>Resultados da pesquisa:</h3>
+            <p>Novo nome: {{ params["novo_nome"].value }}</p>
+            <p>Novo tipo: {{ params["novo_tipo"].value }}</p>
+            <p>Novo numero de regiao: {{ params["novo_num_regiao"].value }}</p>
+            <p>Novo numero de concelho: {{ params["novo_num_concelho"].value }}</p>
+        </form>
+    </body>
+</html> -->
+
 <doctype html>
     <html>
-        <title>Lista analises</title>
+        <title>Lista prescricoes filtradas</title>
         <style>
             table,
             table th,
@@ -32,12 +48,9 @@
         </style>
         <body style="padding:20px">
             {% if cursor %}
-            <a href="./">
+            <a href="./prescricoes">
                 <input type="submit" value="Voltar"/>
-            </a> <br><br>
-            <form action="prescricoes_adicionar" method="post" margin="auto">
-                <input type="submit" value="Adicionar">
-            </form>
+            </a> 
         <table border="2px">
             <thead>
                 <tr>
@@ -58,26 +71,6 @@
                     <td>{{ record[2] }}</td>
                     <td>{{ record[3] }}</td>
                     <td>{{ record[4] }}</td>
-                    <td>
-                        <form action="prescricoes_editar" method="post" padding="auto">
-                            <input type="hidden" name="num_cedula" value="{{ record[0] }}">
-                            <input type="hidden" name="num_doente" value="{{ record[1] }}">
-                            <input type="hidden" name="data" value="{{ record[2] }}">
-                            <input type="hidden" name="substancia" value="{{ record[3] }}">
-                            <input type="hidden" name="quantidade" value="{{ record[4] }}">
-                            <input type="submit" value="Editar">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="medicos_remover" method="post" padding-top="25%">
-                            <input type="hidden" name="num_cedula" value="{{ record[0] }}">
-                            <input type="hidden" name="num_doente" value="{{ record[1] }}">
-                            <input type="hidden" name="data" value="{{ record[2] }}">
-                            <input type="hidden" name="substancia" value="{{ record[3] }}">
-                            <input type="hidden" name="quantidade" value="{{ record[4] }}">
-                            <input type="submit" value="Remover">
-                        </form>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

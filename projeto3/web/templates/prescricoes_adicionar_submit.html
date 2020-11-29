@@ -1,0 +1,16 @@
+<html>
+    <title>Informacao adicionada</title>
+    <body style="padding:20px">
+        <a href="prescricoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="prescricoes_adicionar_submit" method="post">
+            <h3>Nova prescricao criada!</h3>
+            <p>Novo numero de cedula: {{ params["novo_num_cedula"].value }}</p>
+            <p>Novo numero de doente: {{ params["novo_num_doente"].value }}</p>
+            <p>Nova data: {{ params["nova_data"].value }}</p>
+            <p>Nova substancia: {{ params["nova_substancia"].value }}</p>
+            <p>Nova quantidade: {{ params["nova_quantidade"].value }}</p>
+        </form>
+    </body>
+</html>

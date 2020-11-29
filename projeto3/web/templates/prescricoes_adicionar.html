@@ -1,0 +1,17 @@
+<html>
+    <title>Adicionar informacao</title>
+    <body style="padding:20px">
+        <a href="prescricoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Adicionar informacao de uma nova Prescricao</h3>
+        <form action="prescricoes_adicionar_submit" method="post">
+            <p>Novo numero de cedula: <input type="number" name="novo_num_cedula" min="1" required/></p>
+            <p>Novo numero de doente: <input type="number" name="novo_num_doente" min="1" required/></p>
+            <p>Nova data: <input type="date" name="nova_data" required/></p>
+            <p>Nova substancia: <input type="text" name="nova_substancia" pattern="[a-zA-Z ]+" required /></p>
+            <p>Nova quantidade: <input type="number" name="nova_quantidade" required/></p>
+            <p><input type="submit" value="Submeter"/></p>
+        </form>
+    </body>
+</html>
