@@ -35,17 +35,21 @@
             <a href="./">
                 <input type="submit" value="Voltar"/>
             </a> <br><br>
-            <form action="prescricoes_adicionar" method="post" margin="auto">
+            <form action="analises_adicionar" method="post" margin="auto">
                 <input type="submit" value="Adicionar">
             </form>
         <table border="2px">
             <thead>
                 <tr>
+                    <th>Numero Analise</th>
+                    <th>Especialide</th>
                     <th>Numero Cedula</th>
                     <th>Numero Doente</th>
                     <th>Data</th>
-                    <th>Substancia</th>
+                    <th>Data de Registo</th>
+                    <th>Nome da Analise</th>
                     <th>Quantidade</th>
+                    <th>Nome da Instituicao</th>
                     <th>Editar</th>
                     <th>Remover</th>
                 </tr>
@@ -58,8 +62,12 @@
                     <td>{{ record[2] }}</td>
                     <td>{{ record[3] }}</td>
                     <td>{{ record[4] }}</td>
+                    <td>{{ record[5] }}</td>
+                    <td>{{ record[6] }}</td>
+                    <td>{{ record[7] }}</td>
+                    <td>{{ record[8] }}</td>
                     <td>
-                        <form action="prescricoes_editar" method="post" padding="auto">
+                        <form action="analises_editar" method="post" padding="auto">
                             <input type="hidden" name="num_cedula" value="{{ record[0] }}">
                             <input type="hidden" name="num_doente" value="{{ record[1] }}">
                             <input type="hidden" name="data" value="{{ record[2] }}">
@@ -69,7 +77,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="medicos_remover" method="post" padding-top="25%">
+                        <form action="analises_remover" method="post" padding-top="25%">
                             <input type="hidden" name="num_cedula" value="{{ record[0] }}">
                             <input type="hidden" name="num_doente" value="{{ record[1] }}">
                             <input type="hidden" name="data" value="{{ record[2] }}">

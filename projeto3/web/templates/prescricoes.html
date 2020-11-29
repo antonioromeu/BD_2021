@@ -34,11 +34,11 @@
             {% if cursor %}
             <a href="./">
                 <input type="submit" value="Voltar"/>
-            </a> <br><br>
+            </a><br><br>
             <form action="prescricoes_adicionar" method="post" margin="auto">
                 <input type="submit" value="Adicionar">
             </form>
-            <form action="prescricoes_filtar" method="post" margin="auto">
+            <form action="prescricoes_filtrar" method="post" margin="auto">
                 <input type="submit" value="Filtrar">
             </form>
         <table border="2px">
@@ -49,6 +49,7 @@
                     <th>Data</th>
                     <th>Substancia</th>
                     <th>Quantidade</th>
+                    <th>Aviar</th>
                     <th>Editar</th>
                     <th>Remover</th>
                 </tr>
@@ -61,6 +62,11 @@
                     <td>{{ record[2] }}</td>
                     <td>{{ record[3] }}</td>
                     <td>{{ record[4] }}</td>
+                    <td>
+                        <form action="prescricoes_aviar" method="post" margin="auto">
+                            <input type="submit" value="Aviar">
+                        </form>
+                    </td>
                     <td>
                         <form action="prescricoes_editar" method="post" padding="auto">
                             <input type="hidden" name="num_cedula" value="{{ record[0] }}">

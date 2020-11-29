@@ -1,18 +1,3 @@
-<!-- <html>
-    <title>Informacao adicionada</title>
-    <body style="padding:20px">
-        <a href="instituicoes">
-            <input type="submit" value="Voltar"/>
-        </a> <br><br>
-        <form action="instituicoes_adicionar_submit" method="post">
-            <h3>Resultados da pesquisa:</h3>
-            <p>Novo nome: {{ params["novo_nome"].value }}</p>
-            <p>Novo tipo: {{ params["novo_tipo"].value }}</p>
-            <p>Novo numero de regiao: {{ params["novo_num_regiao"].value }}</p>
-            <p>Novo numero de concelho: {{ params["novo_num_concelho"].value }}</p>
-        </form>
-    </body>
-</html> -->
 
 <doctype html>
     <html>
@@ -50,7 +35,7 @@
             {% if cursor %}
             <a href="./prescricoes">
                 <input type="submit" value="Voltar"/>
-            </a> 
+            </a><br><br>
         <table border="2px">
             <thead>
                 <tr>
@@ -59,8 +44,6 @@
                     <th>Data</th>
                     <th>Substancia</th>
                     <th>Quantidade</th>
-                    <th>Editar</th>
-                    <th>Remover</th>
                 </tr>
             </thead>
             <tbody>

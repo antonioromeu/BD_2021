@@ -5,9 +5,24 @@
             <input type="submit" value="Voltar"/>
         </a> <br><br>
         <h3>Filtrar Prescricoes</h3>
-        <form action="prescricoes.html" method="post">
-            <p>Novo numero de cedula: <input type="number" name="novo_num_cedula" min="1" required /></p>
-            <p>Nova data: <input type="date" name="nova_data" required/></p>
+        <form action="prescricoes_filtrar_submit" method="post">
+            <p>Numero de cedula: <input type="number" name="num_cedula" min="1" required /></p>
+            <p>Mes:
+                <select name="mes">
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Marco</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </p>
             <p><input type="submit" value="Submeter"/></p>
         </form>
     </body>

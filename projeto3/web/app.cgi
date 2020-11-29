@@ -245,12 +245,12 @@ def list_prescricoes_filtrar_submit():
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
-        num_cedula = form["novo_num_cedula"].value
-        data = form["nova_data"].value
+        num_cedula = form["num_cedula"].value
+        mes = form["mes"].value
         query = "SELECT * FROM prescricao \
             WHERE num_cedula = %s \
-            and data_ = %s;"
-        data = (num_cedula, data)
+            AND (SELECT EXTRACT(MONTH FROM data_)) = %s;"
+        data = (num_cedula, mes)
         cursor.execute(query, data)
         return render_template("prescricoes_filtrar_submit.html", cursor = cursor) #, params = request.args)
     except Exception as e:
@@ -274,5 +274,7 @@ def list_analises():
     finally:
         cursor.close()
         dbConn.close()
+
+
 
 CGIHandler().run(app)
