@@ -1,0 +1,25 @@
+<html>
+    <title>Adicionar informacao</title>
+    <body style="padding:20px">
+        <a href="instituicoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Adicionar informacao de uma nova Instituicao</h3>
+        <form action="instituicoes_adicionar_submit" method="post">
+            <p>Novo nome: <input type="text" name="novo_nome" pattern="[a-zA-Z ]+" required /></p>
+            <p>Novo tipo:
+                <input type="radio" id="farmacia" name="novo_tipo" value="farmacia" required>
+                <label for="farmacia">Farmacia</label>
+                <input type="radio" id="laboratorio" name="novo_tipo" value="laboratorio">
+                <label for="laboratorio">Laboratorio</label>
+                <input type="radio" id="clinica" name="novo_tipo" value="clinica">
+                <label for="clinica">Clinica</label>
+                <input type="radio" id="hospital" name="novo_tipo" value="hospital">
+                <label for="hospital">Hospital</label>
+            </p>
+            <p>Novo numero de regiao: <input type="number" name="novo_num_regiao" min="1" max="5" required/></p>
+            <p>Novo numero de concelho: <input type="number" name="novo_num_concelho" min="1" max="104" required/></p>
+            <p><input type="submit" value="Submeter"/></p>
+        </form>
+    </body>
+</html>

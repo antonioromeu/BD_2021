@@ -1,0 +1,15 @@
+<html>
+    <title>Informacao adicionada</title>
+    <body style="padding:20px">
+        <a href="instituicoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="instituicoes_adicionar_submit" method="post">
+            <h3>Nova instituicao criada!</h3>
+            <p>Novo nome: {{ params["novo_nome"].value }}</p>
+            <p>Novo tipo: {{ params["novo_tipo"].value }}</p>
+            <p>Novo numero de regiao: {{ params["novo_num_regiao"].value }}</p>
+            <p>Novo numero de concelho: {{ params["novo_num_concelho"].value }}</p>
+        </form>
+    </body>
+</html>

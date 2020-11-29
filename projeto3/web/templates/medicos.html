@@ -1,6 +1,6 @@
 <doctype html>
     <html>
-        <title>Lista instituicoes</title>
+        <title>Lista medicos</title>
         <style>
             table,
             table th,
@@ -35,16 +35,15 @@
             <a href="./">
                 <input type="submit" value="Voltar"/>
             </a> <br><br>
-            <form action="instituicoes_adicionar" method="post" margin="auto">
-                <input type="submit" value="Adicionar nova">
+            <form action="medicos_adicionar" method="post" margin="auto">
+                <input type="submit" value="Adicionar">
             </form>
         <table border="2px">
             <thead>
                 <tr>
+                    <th>Numero Cedula</th>
                     <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>Regiao</th>
-                    <th>Concelho</th>
+                    <th>Especialidade</th>
                     <th>Editar</th>
                     <th>Remover</th>
                 </tr>
@@ -55,16 +54,15 @@
                     <td>{{ record[0] }}</td>
                     <td>{{ record[1] }}</td>
                     <td>{{ record[2] }}</td>
-                    <td>{{ record[3] }}</td>
                     <td>
-                        <form action="instituicoes_editar" method="post" padding="auto">
+                        <form action="medicos_editar" method="post" padding="auto">
                             <input type="hidden" name="nome" value="{{ record[0] }}">
                             <input type="hidden" name="tipo" value="{{ record[1] }}">
                             <input type="submit" value="Editar">
                         </form>
                     </td>
                     <td>
-                        <form action="instituicoes_remover" method="post" padding-top="25%">
+                        <form action="medicos_remover" method="post" padding-top="25%">
                             <input type="hidden" name="nome" value="{{ record[0] }}">
                             <input type="hidden" name="tipo" value="{{ record[1] }}">
                             <input type="submit" value="Remover">
