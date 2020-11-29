@@ -28,9 +28,9 @@ def list_accounts():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         query = "SELECT * FROM account;"
         cursor.execute(query)
-        return render_template("index.html", cursor=cursor)
+        return render_template("index.html", cursor = cursor)
     except Exception as e:
-        return str(e) #Renders a page with the error.
+        return str(e)
     finally:
         cursor.close()
         dbConn.close()
@@ -44,7 +44,7 @@ def list_accounts_edit():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         query = "SELECT account_number, branch_name, balance FROM account;"
         cursor.execute(query)
-        return render_template("accounts.html", cursor=cursor, params=request.args)
+        return render_template("accounts.html", cursor = cursor, params = request.args)
     except Exception as e:
         return str(e)
     finally:
@@ -60,7 +60,7 @@ def list_instituicoes_edit():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         query = "SELECT * FROM instituicao;"
         cursor.execute(query)
-        return render_template("instituicoes.html", cursor=cursor, params=request.args)
+        return render_template("instituicoes.html", cursor = cursor, params = request.args)
     except Exception as e:
         return str(e)
     finally:
@@ -70,14 +70,14 @@ def list_instituicoes_edit():
 @app.route('/instituicoes_editar')
 def alter_balance():
     try:
-        return render_template("instituicoes_editar.html", params=request.args)
+        return render_template("instituicoes_editar.html", params = request.args)
     except Exception as e:
         return str(e)
 
 @app.route('/balance')
 def alter_balance():
     try:
-        return render_template("balance.html", params=request.args)
+        return render_template("balance.html", params = request.args)
     except Exception as e:
         return str(e)
 
