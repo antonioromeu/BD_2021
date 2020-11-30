@@ -1,0 +1,17 @@
+<html>
+    <title>Editar informacao</title>
+    <body style="padding:20px">
+        <a href="prescricoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Editar informacao de prescricao</h3>
+        <form action="prescricoes_editar_submit" method="post">
+            <input type="hidden" name="num_cedula" value="{{ params['num_cedula'].value }}">
+            <input type="hidden" name="num_doente" value="{{ params['num_doente'].value }}">
+            <input type="hidden" name="data" value="{{ params['data'].value }}">
+            <input type="hidden" name="substancia" value="{{ params['substancia'].value }}">
+            <p>Nova quantidade: <input type="number" name="nova_quantidade" min="1" required/></p>
+            <p><input type="submit" value="Submeter"/></p>
+        </form>
+    </body>
+</html>

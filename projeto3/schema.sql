@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS prescricao_venda cascade;
-DROP TABLE IF EXISTS prescricao cascade;
-DROP TABLE IF EXISTS venda_farmacia cascade;
-DROP TABLE IF EXISTS analise cascade;
-DROP TABLE IF EXISTS consulta cascade;
-DROP TABLE IF EXISTS instituicao cascade;
-DROP TABLE IF EXISTS concelho cascade;
-DROP TABLE IF EXISTS regiao cascade;
-DROP TABLE IF EXISTS medico cascade;
+DROP TABLE IF EXISTS prescricao_venda CASCADE;
+DROP TABLE IF EXISTS prescricao CASCADE;
+DROP TABLE IF EXISTS venda_farmacia CASCADE;
+DROP TABLE IF EXISTS analise CASCADE;
+DROP TABLE IF EXISTS consulta CASCADE;
+DROP TABLE IF EXISTS instituicao CASCADE;
+DROP TABLE IF EXISTS concelho CASCADE;
+DROP TABLE IF EXISTS regiao CASCADE;
+DROP TABLE IF EXISTS medico CASCADE;
 
 CREATE TABLE regiao (
     num_regiao INT NOT NULL,

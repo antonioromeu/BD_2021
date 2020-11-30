@@ -1,0 +1,12 @@
+<html>
+    <title>Informacao submetida</title>
+    <body style="padding:20px">
+        <a href="prescricoes">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="prescricoes_editar_submit" method="post">
+            <h3>Alteracoes bem sucedidas na prescricao!</h3>
+            <p>Nova quantidade: {{ params["nova_quantidade"].value }}</p>
+        </form>
+    </body>
+</html>

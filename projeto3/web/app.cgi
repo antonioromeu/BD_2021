@@ -15,9 +15,10 @@ app = Flask(__name__)
 
 ## SGBD configs
 DB_HOST="db.tecnico.ulisboa.pt"
-DB_USER="ist192427"
+DB_USER="ist192510"
 DB_DATABASE=DB_USER
-DB_PASSWORD="gpmi9572"
+# DB_PASSWORD="gpmi9572"
+DB_PASSWORD="lgdh6872"
 DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_DATABASE, DB_USER, DB_PASSWORD)
 
 ## Runs the function once the root page is requested.
@@ -62,27 +63,8 @@ def edit_update_instituicoes():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         nome = form["nome"].value
-        # tipo = form["tipo"].value
-        # novo_nome = form["novo_nome"].value
         novo_num_regiao = form["novo_num_regiao"].value
         novo_num_concelho = form["novo_num_concelho"].value
-        # query = "WITH \
-        # new_venda_farmacia AS ( \
-        # UPDATE venda_farmacia \
-        #     SET inst = %s \
-        # WHERE inst = %s), \
-        # new_consulta AS ( \
-        # UPDATE consulta \
-        #     SET nome_instituicao = %s \
-        # WHERE nome_instituicao = %s), \
-        # new_analise AS ( \
-        # UPDATE analise \
-        #     SET inst = %s \
-        # WHERE inst = %s) \
-        # UPDATE instituicao \
-        #     SET nome = %s, num_regiao = %s, num_concelho = %s \
-        # WHERE nome = %s;"
-        # data = (novo_nome, nome, novo_nome, nome, novo_nome, nome, novo_nome, novo_num_regiao, novo_num_concelho, nome)
         query = "UPDATE instituicao \
         SET num_regiao = %s, num_concelho = %s \
         WHERE nome = %s;"
@@ -98,18 +80,24 @@ def edit_update_instituicoes():
 
 @app.route('/instituicoes_remover', methods=["POST"])
 def remove_instituicoes():
+    dbConn = None
+    cursor = None
     try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         nome = form["nome"].value
-        query = "DELETE FROM instituicoes \
-            WHERE nome = %s cascade;"
-        data = (nome)
+        query = "DELETE FROM instituicao \
+            WHERE nome = %s;"
+        data = (nome,)
         cursor.execute(query, data)
         return render_template("instituicoes_remover.html", params = form)
-        # DELETE FROM some_child_table WHERE some_fk_field IN (SELECT some_id FROM some_Table);
-        # DELETE FROM some_table;
     except Exception as e:
         return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
 
 @app.route('/instituicoes_adicionar', methods=["POST"])
 def add_instituicoes():
@@ -205,16 +193,35 @@ def edit_update_medicos():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         nome = form["nome"].value
-        num_cedula = form["num_cedula"].value
-        novo_num_cedula = form["novo_num_cedula"].value
         novo_nome = form["novo_nome"].value
-        nova_especialide = form["nova_especialidade"].value
+        nova_especialide = form["nova_especialidade"].values
         query = "UPDATE medico \
             SET nome = %s, especialidade = %s \
-        WHERE num_cedula = %s;"
-        data = (novo_num_cedula, novo_nome, nova_especialide, num_cedula)
+            WHERE nome = %s;"
+        data = (novo_nome, nova_especialide, nome)
         cursor.execute(query, data)
         return render_template("medicos_editar_submit.html", params = form)
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+@app.route('/medicos_remover', methods=["POST"])
+def remove_medicos():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["num_cedula"].value
+        query = "DELETE FROM medico \
+            WHERE num_cedula = %s;"
+        data = (num_cedula,)
+        cursor.execute(query, data)
+        return render_template("medicos_remover.html", params = form)
     except Exception as e:
         return str(e)
     finally:
@@ -300,6 +307,70 @@ def list_prescricoes_filtrar_submit():
         cursor.close()
         dbConn.close()
 
+@app.route('/prescricoes_editar', methods=["POST"])
+def edit_prescricoes():
+    try:
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("prescricoes_editar.html", params = form)
+    except Exception as e:
+        return str(e)
+
+@app.route('/prescricoes_editar_submit', methods=["POST"])
+def edit_update_prescricoes():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["num_cedula"].value
+        num_doente = form["num_doente"].value
+        data_ = form["data"].value
+        substancia = form["substancia"].value
+        quantidade = form["nova_quantidade"].value
+        query = "UPDATE prescricao \
+            SET quantidade = %s \
+            WHERE num_cedula = %s \
+            AND num_doente = %s \
+            AND data_ = %s \
+            AND substancia = %s;"
+        data = (quantidade, num_cedula, num_doente, data_, substancia)
+        cursor.execute(query, data)
+        return render_template("prescricoes_editar_submit.html", params = form)
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+@app.route('/prescricoes_remover', methods=["POST"])
+def remove_prescricoes():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_cedula = form["num_cedula"].value
+        num_doente = form["num_doente"].value
+        data_ = form["data"].value
+        substancia = form["substancia"].value
+        query = "DELETE FROM prescricao \
+            WHERE num_cedula = %s \
+            AND num_doente = %s \
+            AND data_ = %s \
+            AND substancia = %s;"
+        data = (num_cedula, num_doente, data_, substancia)
+        cursor.execute(query, data)
+        return render_template("prescricoes_remover.html")
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
 @app.route('/analises')
 def list_analises():
     dbConn = None
@@ -327,5 +398,26 @@ def analises_glicemia():
         return render_template("analises_glicemia.html", params = form, cursor = cursor)
     except Exception as e:
         return str(e)
+
+@app.route('/analises_remover', methods=["POST"])
+def remove_analises():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        num_analise = form["num_analise"].value
+        query = "DELETE FROM analise \
+            WHERE num_analise = %s;"
+        data = (num_analise,)
+        cursor.execute(query, data)
+        return render_template("analises_remover.html")
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
 
 CGIHandler().run(app)
