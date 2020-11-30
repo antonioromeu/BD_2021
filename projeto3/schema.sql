@@ -23,7 +23,7 @@ CREATE TABLE concelho (
     num_habitantes INT NOT NULL,
     PRIMARY KEY (num_concelho, num_regiao),
     FOREIGN KEY (num_regiao)
-        REFERENCES regiao(num_regiao)
+        REFERENCES regiao(num_regiao) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE instituicao (
@@ -34,7 +34,7 @@ CREATE TABLE instituicao (
     num_concelho INT NOT NULL,
     PRIMARY KEY (nome),
     FOREIGN KEY (num_concelho, num_regiao)
-        REFERENCES concelho(num_concelho, num_regiao)
+        REFERENCES concelho(num_concelho, num_regiao) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE medico (
@@ -52,9 +52,9 @@ CREATE TABLE consulta (
     nome_instituicao VARCHAR(80) NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_),
     FOREIGN KEY (num_cedula)
-        REFERENCES medico(num_cedula),
+        REFERENCES medico(num_cedula) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (nome_instituicao)
-        REFERENCES instituicao(nome),
+        REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE(num_doente, data_, nome_instituicao) -- RI_consulta_2
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE prescricao (
     quantidade INT NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_, substancia),
     FOREIGN KEY (num_cedula, num_doente, data_)
-        REFERENCES consulta(num_cedula, num_doente, data_)
+        REFERENCES consulta(num_cedula, num_doente, data_) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE analise (
@@ -80,8 +80,10 @@ CREATE TABLE analise (
     quant INT NOT NULL,
     inst VARCHAR(60) NOT NULL,
     PRIMARY KEY (num_analise),
-    FOREIGN KEY (num_cedula, num_doente, data_) REFERENCES consulta(num_cedula, num_doente, data_),
-    FOREIGN KEY (inst) REFERENCES instituicao(nome)
+    FOREIGN KEY (num_cedula, num_doente, data_)
+        REFERENCES consulta(num_cedula, num_doente, data_) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (inst)
+        REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE venda_farmacia (
@@ -93,7 +95,7 @@ CREATE TABLE venda_farmacia (
     inst VARCHAR(80) NOT NULL,
     PRIMARY KEY (num_venda),
     FOREIGN KEY (inst)
-        REFERENCES instituicao(nome)
+        REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE prescricao_venda (
@@ -104,7 +106,7 @@ CREATE TABLE prescricao_venda (
     num_venda INT NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_, substancia, num_venda),
     FOREIGN KEY (num_venda)
-        REFERENCES venda_farmacia(num_venda),
+        REFERENCES venda_farmacia(num_venda) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (num_cedula, num_doente, data_, substancia)
-        REFERENCES prescricao(num_cedula, num_doente, data_, substancia)
+        REFERENCES prescricao(num_cedula, num_doente, data_, substancia) ON DELETE CASCADE ON UPDATE CASCADE
 );

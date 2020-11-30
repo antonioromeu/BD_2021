@@ -62,25 +62,32 @@ def edit_update_instituicoes():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         nome = form["nome"].value
-        tipo = form["tipo"].value
-        novo_nome = form["novo_nome"].value
+        # tipo = form["tipo"].value
+        # novo_nome = form["novo_nome"].value
         novo_num_regiao = form["novo_num_regiao"].value
         novo_num_concelho = form["novo_num_concelho"].value
-        # query = ""
-        # data = ()
-        # if (tipo == "farmacia") {
-        if (tipo == "farmacia"):
-            query = "WITH new_venda_farmacia AS (\
-            UPDATE venda_farmacia \
-                SET inst = %s \
-            WHERE inst = %s) \
-            UPDATE instituicao \
-                SET nome = %s, num_regiao = %s, num_concelho = %s \
-            WHERE nome = %s;"
-            data = (novo_nome, nome, novo_nome, novo_num_regiao, novo_num_concelho, nome)
-            cursor.execute(query, data)
-        # elif (tipo == hospital):
-        #     CALMA NAO COMPILEM AINDA NAO ACABEI
+        # query = "WITH \
+        # new_venda_farmacia AS ( \
+        # UPDATE venda_farmacia \
+        #     SET inst = %s \
+        # WHERE inst = %s), \
+        # new_consulta AS ( \
+        # UPDATE consulta \
+        #     SET nome_instituicao = %s \
+        # WHERE nome_instituicao = %s), \
+        # new_analise AS ( \
+        # UPDATE analise \
+        #     SET inst = %s \
+        # WHERE inst = %s) \
+        # UPDATE instituicao \
+        #     SET nome = %s, num_regiao = %s, num_concelho = %s \
+        # WHERE nome = %s;"
+        # data = (novo_nome, nome, novo_nome, nome, novo_nome, nome, novo_nome, novo_num_regiao, novo_num_concelho, nome)
+        query = "UPDATE instituicao \
+        SET num_regiao = %s, num_concelho = %s \
+        WHERE nome = %s;"
+        data = (novo_num_regiao, novo_num_concelho, nome)
+        cursor.execute(query, data)
         return render_template("instituicoes_editar_submit.html", params = form)
     except Exception as e:
         return str(e)
@@ -174,6 +181,40 @@ def add_update_medicos():
         data = (num_cedula, nome, especialidade)
         cursor.execute(query, data)
         return render_template("medicos_adicionar_submit.html", params = form)
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+@app.route('/medicos_editar', methods=["POST"])
+def edit_medicos():
+    try:
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("medicos_editar.html", params = form)
+    except Exception as e:
+        return str(e)
+
+@app.route('/medicos_editar_submit', methods=["POST"])
+def edit_update_medicos():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        nome = form["nome"].value
+        num_cedula = form["num_cedula"].value
+        novo_num_cedula = form["novo_num_cedula"].value
+        novo_nome = form["novo_nome"].value
+        nova_especialide = form["nova_especialidade"].value
+        query = "UPDATE medico \
+            SET nome = %s, especialidade = %s \
+        WHERE num_cedula = %s;"
+        data = (novo_num_cedula, novo_nome, nova_especialide, num_cedula)
+        cursor.execute(query, data)
+        return render_template("medicos_editar_submit.html", params = form)
     except Exception as e:
         return str(e)
     finally:
@@ -275,6 +316,16 @@ def list_analises():
         cursor.close()
         dbConn.close()
 
-
+@app.route('/analises_glicemia', methods=["POST"])
+def analises_glicemia():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
+        return render_template("analises_glicemia.html", params = form, cursor = cursor)
+    except Exception as e:
+        return str(e)
 
 CGIHandler().run(app)

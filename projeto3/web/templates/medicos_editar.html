@@ -1,0 +1,17 @@
+<html>
+    <title>Editar informacao</title>
+    <body style="padding:20px">
+        <a href="medicos">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Editar informacao de Medico {{ params["nome"].value }}</h3>
+        <form action="medicos_editar_submit" method="post">
+            <input type="hidden" name="nome" value="{{ params['nome'].value }}"/>
+            <input type="hidden" name="num_cedula" value="{{ params['num_cedula'].value }}"/>
+            <p>Novo numero de cedula: <input type="number" name="novo_num_cedula" min="1" required /></p>
+            <p>Novo nome: <input type="text" name="novo_nome" pattern="[a-zA-Z ]+" required/></p>
+            <p>Nova especialidade: <input type="text" name="nova_especialidade" pattern="[a-zA-Z ]+" required/></p>
+            <p><input type="submit" value="Submeter"/></p>
+        </form>
+    </body>
+</html>

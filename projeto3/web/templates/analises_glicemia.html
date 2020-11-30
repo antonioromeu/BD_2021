@@ -1,0 +1,21 @@
+<html>
+    <title>Ver glicemia</title>
+    <body style="padding:20px">
+        <a href="analises">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Filtrar:</h3>
+        <form action="analises_glicemia_submit" method="post">
+            <!-- <p>Numero de cedula: <input type="number" name="num_cedula" min="1" required /></p> -->
+            {% if cursor %}
+            <p>Concelho:
+                <select name="concelho">
+                    {% for record in cursor %}
+                        <option value="{{ record[2] }}">{{ record[2] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p><input type="submit" value="Submeter"/></p>
+        </form> 
+    </body>
+</html>

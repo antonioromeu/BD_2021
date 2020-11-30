@@ -1,0 +1,14 @@
+<html>
+    <title>Informacao submetida</title>
+    <body style="padding:20px">
+        <a href="medicos">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="medicos_editar_submit" method="post">
+            <h3>Alteracoes bem sucedidas no medico {{ params["nome"].value }}!</h3>
+            <p>Novo numero de cedula: {{ params["novo_num_cedula"].value }}</p>
+            <p>Novo nome: {{ params["novo_nome"].value }}</p>
+            <p>Nova especialide: {{ params["nova_especialidade"].value }}</p>
+        </form>
+    </body>
+</html>
