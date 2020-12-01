@@ -1,0 +1,43 @@
+A aplicação python é composta por uma página inicial que permite selecionar a
+tabela (Instituicoes, Medicos, Prescricoes, Analises) sobre a qual queremos
+realizar operações.
+
+Ao selecionar uma destas tabelas, somos levados para uma página que nos apresenta
+toda a informação relativa à tabela selecionada.
+
+Todas estas páginas possuem um botão de voltar que nos permite regressar à
+página inicial.
+
+Após a seleção da tabela sobre a qual queremos realizar operações é possível
+adicionar, remover e editar qualquer entrada da mesma.
+
+Após serem introduzidos os dados para cada operação de adicionar e editar, a
+aplicação remete-nos para uma página de submição que apresenta os dados
+introduzidos no caso da operação ser realizada com sucesso. Caso contrário, é
+apresentada uma mensagem de erro.
+
+No caso das prescrições é possível filtrar pelo número de cédula do médico e
+pelo mês.
+
+Para as análises é permitido filtrar o resultado das análises segundo os níveis
+de glicemia (valor máximo e mínimo) de acordo com o concelho selecionado.
+
+Na página inicial é ainda possível criar uma nova venda em farmácia. Caso seja
+introduzida a informação relativa ao número de cédula, número de doente e data
+de prescrição então esta venda é automaticamente adicionada à tabela de
+Prescricoes_venda.
+
+Em todas as ações que o utilizador realiza, é garantido que não existe a
+possibilidade de SQL Injection visto que toda a informação é enviada para a base
+de dados com recurso a prepared statements, ou seja o execute é sempre chamado 
+com dois argumentos (quando necessário) ao invés de ser feito append nas strings.
+
+A atomicidade das operações de actualização da base de dados é garantida através
+de Transações.
+
+Para cada uma das páginas foi associada um ficheiro.
+
+Podemos testar a aplicação através do link https://web2.ist.utl.pt/ist192510/app.cgi/
+
+Nota: foi adicionado "ON DELETE CASCADE ON UPDATE CASCADE" ao schema.sql em todas
+as referências de foreign keys.
