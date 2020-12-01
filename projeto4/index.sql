@@ -35,5 +35,3 @@ CREATE INDEX medico_index ON medico
     -- assumimos que num_cedula tem menos valores distintos de que data
 CREATE INDEX consulta_index ON consulta
     USING BTREE(data, num_cedula)
-
-    
