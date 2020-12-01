@@ -41,5 +41,3 @@ DROP TRIGGER IF EXISTS analise_consulta_omissa_procedure ON analise;
 
 CREATE TRIGGER analise_consulta_omissa_procedure BEFORE UPDATE ON analise
 FOR EACH ROW EXECUTE PROCEDURE analise_consulta_omissa_procedure();
-
-
