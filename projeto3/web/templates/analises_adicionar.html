@@ -4,17 +4,16 @@
         <a href="analises">
             <input type="submit" value="Voltar"/>
         </a> <br><br>
-        <h3>Adicionar informacao de uma nova Prescricao</h3>
+        <h3>Adicionar informacao de uma nova Analise</h3>
         <form action="analises_adicionar_submit" method="post">
-            <p>Novo numero de analise: <input type="number" name="novo_num_analise" min="1" required/></p>
-            <p>Nova especialidade: <input type="text" name="nova_especialdade" pattern="[a-zA-Z ]+" required /></p>
-            <p>Novo numero de cedula: <input type="number" name="novo_num_cedula" min="1" required/></p>
-            <p>Novo numero de doente: <input type="number" name="novo_num_doente" min="1" required/></p>
-            <p>Nova data: <input type="date" name="nova_data" required/></p>
-            <p>Nova data de registo: <input type="date" name="nova_data_registo" required/></p>
-            <p>Nova analise: <input type="text" name="novo_analise" pattern="[a-zA-Z ]+" required /></p>
-            <p>Nova quantidade: <input type="number" name="nova_quantidade" required/></p>
-            <p>Nova instituicao: <input type="text" name="nova_instituicao" pattern="[a-zA-Z ]+" required /></p>
+            <p>Nova especialidade: <input type="text" name="especialidade" pattern="[a-zA-Z ]+" required /></p>
+            <p>Novo numero de cedula: <input type="number" name="num_cedula" min="1" required/></p>
+            <p>Novo numero de doente: <input type="number" name="num_doente" min="1" required/></p>
+            <p>Nova data: <input type="date" name="data" required/></p>
+            <p>Nova data de registo: <input type="date" name="data_registo" required/></p>
+            <p>Nova descricao: <input type="text" name="nome" pattern="[a-zA-Z ]+" required /></p>
+            <p>Nova quantidade: <input type="number" name="quantidade" min="1" required/></p>
+            <p>Nova instituicao: <input type="text" name="instituicao" pattern="[a-zA-Z ]+" required /></p>
             <p><input type="submit" value="Submeter"/></p>
         </form>
     </body>

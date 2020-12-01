@@ -49,7 +49,6 @@
                     <th>Data</th>
                     <th>Substancia</th>
                     <th>Quantidade</th>
-                    <th>Aviar</th>
                     <th>Editar</th>
                     <th>Remover</th>
                 </tr>
@@ -62,11 +61,6 @@
                     <td>{{ record[2] }}</td>
                     <td>{{ record[3] }}</td>
                     <td>{{ record[4] }}</td>
-                    <td>
-                        <form action="prescricoes_aviar" method="post" margin="auto">
-                            <input type="submit" value="Aviar">
-                        </form>
-                    </td>
                     <td>
                         <form action="prescricoes_editar" method="post" padding="auto">
                             <input type="hidden" name="num_cedula" value="{{ record[0] }}">

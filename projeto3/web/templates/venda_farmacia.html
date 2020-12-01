@@ -1,0 +1,34 @@
+<html>
+    <title>Efetuar venda</title>
+    <body style="padding:20px">
+        <a href="./">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <h3>Efetuar Venda em Farmacia</h3>
+        {% if cursor %}
+        <form action="venda_farmacia_submit" method="post">
+            <!-- <p>Numero de venda: <input type="number" name="num_venda" min="1" required/></p> -->
+            <p>Substancia: <input type="text" name="substancia" pattern="[a-zA-Z ]+" required /></p>
+            <p>Data: <input type="date" name="data" required/></p>
+            <p>Quantidade: <input type="number" name="quant" min="1" required /></p>
+            <p>Preco: <input type="number" name="preco" min="1" required /></p>
+            <p>Instituicao: 
+                <select name="inst">
+                    {% for record in cursor %}
+                        <option value="{{ record[0] }}">{{ record[0] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>Numero de cedula: <input type="number" name="num_cedula" min="1"/></p>
+            <p>Numero de doente: <input type="number" name="num_doente" min="1"/></p>
+            <p>Data da prescricao: <input type="date" name="data_prescricao"/></p>
+
+            <p><input type="submit" value="Submeter"/></p>
+        </form>
+
+        {% else %}
+        <p> Erro: ao obter dados da base de dados!</p>
+        {% endif %}
+    </body>
+</html>

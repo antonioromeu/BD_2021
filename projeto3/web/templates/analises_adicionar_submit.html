@@ -6,15 +6,14 @@
         </a> <br><br>
         <form action="analises_adicionar_submit" method="post">
             <h3>Nova analise criada!</h3>
-            <p>Novo numero de analise: {{ params["novo_num_analise"].value }}</p>
-            <p>Nova especialidade: {{ params["nova_especialidade"].value }}</p>
-            <p>Novo numero de cedula: {{ params["novo_num_cedula"].value }}</p>
-            <p>Novo numero de doente: {{ params["novo_num_doente"].value }}</p>
-            <p>Nova data: {{ params["nova_data"].value }}</p>
-            <p>Nova data de registo: {{ params["nova_data_registo"].value }}</p>
-            <p>Nova analise: {{ params["nova_analise"].value }}</p>
-            <p>Nova quantidade: {{ params["nova_quantidade"].value }}</p>
-            <p>Nova instituicao: {{ params["nova_instituicao"].value }}</p>
+            <p>Nova especialidade: {{ params["especialidade"].value }}</p>
+            <p>Novo numero de cedula: {{ params["num_cedula"].value }}</p>
+            <p>Novo numero de doente: {{ params["num_doente"].value }}</p>
+            <p>Nova data: {{ params["data"].value }}</p>
+            <p>Nova data de registo: {{ params["data_registo"].value }}</p>
+            <p>Nova descricao: {{ params["nome"].value }}</p>
+            <p>Nova quantidade: {{ params["quantidade"].value }}</p>
+            <p>Nova instituicao: {{ params["instituicao"].value }}</p>
         </form>
     </body>
 </html>

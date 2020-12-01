@@ -1,0 +1,15 @@
+<html>
+    <title>Informacao submetida</title>
+    <body style="padding:20px">
+        <a href="analises">
+            <input type="submit" value="Voltar"/>
+        </a> <br><br>
+        <form action="analises_editar_submit" method="post">
+            <h3>Alteracoes bem sucedidas na analise!</h3>
+            <p>Nova especialidade: {{ params["nova_especialidade"].value }}</p>
+            <p>Nova data de registo: {{ params["nova_data_registo"].value }}</p>
+            <p>Novo nome de analise: {{ params["novo_nome"].value }}</p>
+            <p>Nova quantidade: {{ params["nova_quantidade"].value }}</p>
+        </form>
+    </body>
+</html>

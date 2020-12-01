@@ -1,0 +1,74 @@
+
+<doctype html>
+    <html>
+        <title>Lista analise glicemia filtradas</title>
+        <style>
+            table,
+            table th,
+            td {
+                /* border: 1px solid #cccccc; */
+                padding: 5px 10px;
+                vertical-align: middle;
+                text-align: center;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                /* height: 80px;
+                width: 160px; */
+                text-align: center;
+                padding: 5px 10px;
+                vertical-align: middle;
+            }
+            th {
+                padding: 5px 10px;
+                vertical-align: middle;
+                text-align: center;
+            }
+            td {
+                padding: 5px 10px;
+                vertical-align: middle;
+                text-align: center;
+            }
+        </style>
+        <body style="padding:20px">
+            {% if cursor %}
+            <a href="./analises">
+                <input type="submit" value="Voltar"/>
+            </a><br><br>
+        <table border="2px">
+            <thead>
+                <tr>
+                    <th>Numero Analise</th>
+                    <th>Especialidade</th>
+                    <th>Numero Cedula</th>
+                    <th>Numero Doente</th>
+                    <th>Data</th>
+                    <th>Data de Registo</th>
+                    <th>Nome da Analise</th>
+                    <th>Quantidade</th>
+                    <th>Nome da Instituicao</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in cursor %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                    <td>{{ record[3] }}</td>
+                    <td>{{ record[4] }}</td>
+                    <td>{{ record[5] }}</td>
+                    <td>{{ record[6] }}</td>
+                    <td>{{ record[7] }}</td>
+                    <td>{{ record[8] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p> Erro: ao obter dados da base de dados!</p>
+        {% endif %}
+    </body>
+</html>
+</doctype>
