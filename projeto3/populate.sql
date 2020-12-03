@@ -309,13 +309,12 @@ INSERT INTO medico VALUES (1, 'Brian May', 'obstetricia');
 INSERT INTO medico VALUES (2, 'Aparicio', 'medicina familiar');
 INSERT INTO medico VALUES (3, 'Miley Cyrus', 'medicina alternativa');
 INSERT INTO medico VALUES (4, 'Dua Lipa', 'urologia');
-INSERT INTO medico VALUES (5, 'Pabllo Vittar', 'bundalogia');
+INSERT INTO medico VALUES (5, 'Pabllo Vittar', 'ortopedista');
 INSERT INTO medico VALUES (6, 'Noah Centino', 'dermatologista');
-INSERT INTO medico VALUES (7, 'Kali Uchis', 'badbitchlogia');
+INSERT INTO medico VALUES (7, 'Kali Uchis', 'dermatologista');
 INSERT INTO medico VALUES (8, 'Tia Gi', 'ginecologia');
 INSERT INTO medico VALUES (9, 'CUCA MONGA', 'psiquiatria');
 INSERT INTO medico VALUES (10, 'Maria Madalena', 'nutricionismo');
-
 
 INSERT INTO consulta VALUES (1, 1, '2019-02-01', 'Hospital de Sao Joao'); --- arouca   ano e mes alterado para 2019, semestre 1
 INSERT INTO consulta VALUES (4, 4, '2019-02-04', 'Hospital de Sao Joao');

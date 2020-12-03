@@ -16,16 +16,19 @@ CREATE INDEX num_doente_index ON consulta
     -- demorar mais do que percorrer só as possbilidades
 
 
--- 3
+-- 3. Como cada bloco apenas pode comportar a informação de 2 registos na tabela,
+-- é mais vantajoso ter as ligações feitas por apontadores, em vez de ter os blocos
+-- fisicamente juntos ao disco. Para além disso, TO DO
 -- select​ nome ​from​ medico ​where​ especialidade = ‘Ei’
-    -- 1) Os blocos do disco são de 2K bytes e cada registo na tabela ocupa 1K bytes.
-    -- 2) Os médicos estão uniformemente distribuídos pelas 6 especialidades.
+-- em que Ei é uma das seis especialidades.
 
-    -- Como cada bloco apenas pode comportar a informação de 2 registos na tabela, 
-    -- é mais vantajoso ter as ligações feitas por apontadores, em vez de ter os blocos
-    -- fisicamente juntos ao disco. Para além disso, TO DO
-CREATE INDEX medico_index ON medico
-    USING BTREE(especialidade)
+    Como existem poucos valores diferentes para a especialidade (cardinalidade reduzida),
+    o bitmap para cada tuplo da tabela vai ter tambem um tamanho reduzido (6 bits).
+    Assim as operações com bitmaps vão res extremamente rapidas, particularmente para 
+    igualdades como a query acima descrita.
+
+
+
 
 -- 4
 -- select nome from medico, consulta
