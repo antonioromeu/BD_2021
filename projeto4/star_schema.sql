@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS d_tempo CASCADE;
-DROP TABLE IF EXISTS d_instituicao CASCADE;
-DROP TABLE IF EXISTS f_presc_venda CASCADE;
-DROP TABLE IF EXISTS f_analise CASCADE;
+DROP TABLE IF EXISTS d_tempo;
+DROP TABLE IF EXISTS d_instituicao;
+DROP TABLE IF EXISTS f_presc_venda;
+DROP TABLE IF EXISTS f_analise;
 
 CREATE TABLE d_tempo (
     id_tempo SERIAL NOT NULL,
@@ -115,22 +115,6 @@ INSERT INTO f_presc_venda (id_presc_venda, id_medico, num_doente, id_data_regist
             ON temp1.num_venda = venda_farmacia.num_venda
             INNER JOIN d_instituicao
             ON d_instituicao.nome = venda_farmacia.inst) AS temp2;
-
--- INSERT INTO f_analise (id_analise, id_medico, num_doente, id_data_registo, id_inst, nome, quant)
---     SELECT analise.num_analise AS id_analise,
---         num_cedula AS id_medico,
---         num_doente,
---         temp1.id_tempo AS id_data_registo,
---         id_inst,
---         analise.nome,
---         analise.quant
---         FROM (SELECT analise.num_analise
---             FROM d_tempo, analise
---             WHERE (dia = (SELECT(EXTRACT(day FROM analise.data_)))
---                 AND mes = (SELECT (EXTRACT(month FROM analise.data_)))
---                 AND ano = (SELECT (EXTRACT(year FROM analise.data_))))) AS temp1
---         INNER JOIN analise ON analise.num_analise = temp1.num_analise 
---         INNER JOIN d_instituicao ON analise.inst = d_instituicao.nome;
 
 INSERT INTO f_analise (id_analise, id_medico, num_doente, id_data_registo, id_inst, nome, quant)
         SELECT analise.num_analise AS id_analise, 
