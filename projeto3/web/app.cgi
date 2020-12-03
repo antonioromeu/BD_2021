@@ -198,7 +198,7 @@ def edit_update_medicos():
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         nome = form["nome"].value
         novo_nome = form["novo_nome"].value
-        nova_especialide = form["nova_especialidade"].values
+        nova_especialide = form["nova_especialidade"].value
         query = "UPDATE medico \
             SET nome = %s, especialidade = %s \
             WHERE nome = %s;"
