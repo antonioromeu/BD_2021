@@ -87,7 +87,7 @@ CREATE TABLE analise (
 );
 
 CREATE TABLE venda_farmacia (
-    num_venda INT NOT NULL UNIQUE,
+    num_venda INT NOT NULL,
     data_registo DATE NOT NULL,
     substancia VARCHAR(60) NOT NULL,
     quant INT NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE prescricao_venda (
     num_doente INT NOT NULL,
     data_ DATE NOT NULL,
     substancia VARCHAR(60) NOT NULL,
-    num_venda INT NOT NULL UNIQUE,
+    num_venda SERIAL NOT NULL,
     PRIMARY KEY (num_cedula, num_doente, data_, substancia, num_venda),
     FOREIGN KEY (num_venda)
         REFERENCES venda_farmacia(num_venda) ON DELETE CASCADE ON UPDATE CASCADE,

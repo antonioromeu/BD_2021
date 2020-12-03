@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS d_tempo CASCADE;
-DROP TABLE IF EXISTS d_instituicao CASCADE;
-DROP TABLE IF EXISTS f_presc_venda CASCADE;
-DROP TABLE IF EXISTS f_analise CASCADE;
+-- DROP TABLE IF EXISTS d_tempo CASCADE;
+-- DROP TABLE IF EXISTS d_instituicao CASCADE;
+-- DROP TABLE IF EXISTS f_presc_venda CASCADE;
+-- DROP TABLE IF EXISTS f_analise CASCADE;
 
 CREATE TABLE d_tempo (
     id_tempo SERIAL NOT NULL,
@@ -11,7 +11,8 @@ CREATE TABLE d_tempo (
     mes INT NOT NULL,
     trimestre INT NOT NULL,
     ano INT NOT NULL,
-    PRIMARY KEY (id_tempo)
+    PRIMARY KEY (id_tempo),
+    UNIQUE(dia, mes, ano)
 );
 
 CREATE TABLE d_instituicao (
@@ -28,12 +29,12 @@ CREATE TABLE d_instituicao (
 );
 
 CREATE TABLE f_presc_venda (
-    id_presc_venda SERIAL NOT NULL,
+    id_presc_venda INT NOT NULL,
     id_medico INT NOT NULL,
     num_doente INT NOT NULL,
     id_data_registo INT NOT NULL,
     id_inst INT NOT NULL,
-    substancia INT NOT NULL,
+    substancia VARCHAR(60) NOT NULL,
     quant INT NOT NULL,
     PRIMARY KEY (id_presc_venda),
     FOREIGN KEY (id_presc_venda)
@@ -88,58 +89,23 @@ INSERT INTO d_tempo (dia, dia_da_semana, semana, mes, trimestre, ano)
 INSERT INTO d_instituicao (nome, tipo, num_regiao, num_concelho)
     SELECT nome, tipo, num_regiao, num_concelho FROM instituicao;
 
-INSERT INTO f_presc_venda (id_medico, num_doente, id_data_registo, substancia, quant)
-    SELECT num_cedula AS id_medico,
-        num_doente
-    FROM prescricao_venda,
-    SELECT id_data_registo
-    FROM d_tempo
-    WHERE (dia = SELECT(EXTRACT(day FROM prescricao_venda.data_))
-        AND mes = SELECT (EXTRACT(month FROM prescricao_venda.data_))
-        AND ano = SELECT (EXTRACT(year FROM prescricao_venda.data_))),
-    SELECT substancia
-    FROM prescricao_venda,
-    SELECT quant
-    FROM venda_farmacia
-    WHERE num_venda = prescricao_venda.num_venda;
-
-
-    SELECT id_medico, num_doente, id_data_registo, substancia, quant
-    FROM (SELECT id_tempo AS id_data_registo,
-
-        FROM (SELECT id_data_registo
-            FROM d_tempo
-            WHERE (dia = SELECT(EXTRACT(day FROM prescricao_venda.data_))
-            AND mes = SELECT (EXTRACT(month FROM prescricao_venda.data_))
-            AND ano = SELECT (EXTRACT(year FROM prescricao_venda.data_)))
-        )
-    )
-
-        EXTRACT(day FROM ts) AS dia,
-      EXTRACT(dow FROM ts) AS dia_da_semana,
-      EXTRACT(week FROM ts) AS semana,
-      EXTRACT(month FROM ts) AS mes,
-      FLOOR((EXTRACT(month FROM ts) - 1) / 4) + 1 AS trimestre,
-      EXTRACT(year FROM ts) AS ano,
-        CASE
-              WHEN tem_anomalia_redacao
-                THEN 'redacao'
-                ELSE 'traducao'
-          END AS tipo_anomalia,
-      CASE
-        WHEN EXISTS (select *
-              from correcao c
-              where c.anomalia_id = anomalia.id)
-        THEN True
-        ELSE False
-      END AS com_proposta
-      FROM anomalia) AS anomalias NATURAL JOIN
-      incidencia NATURAL JOIN
-      (SELECT id AS item_id,
-        latitude, longitude
-      FROM item) AS items NATURAL JOIN
-      d_utilizador NATURAL JOIN
-      d_lingua NATURAL JOIN
-      d_local NATURAL JOIN
-      d_tempo
-  ORDER BY anomalia_id;
+INSERT INTO f_presc_venda (id_medico, num_doente, id_data_registo, id_inst, substancia, quant)
+    SELECT id_medico, num_doente, id_data_registo, id_inst, substancia, quant
+    FROM (SELECT
+        num_cedula AS id_medico, 
+        num_doente,
+        id_tempo AS id_data_registo,
+        venda_farmacia.substancia AS substancia,
+        venda_farmacia.quant AS quant,
+        d_instituicao.id_inst AS id_inst
+        FROM (SELECT d_tempo.id_tempo, prescricao_venda.data_, prescricao_venda.num_venda
+            FROM d_tempo, prescricao_venda
+            WHERE (dia = (SELECT(EXTRACT(day FROM prescricao_venda.data_)))
+                AND mes = (SELECT (EXTRACT(month FROM prescricao_venda.data_)))
+                AND ano = (SELECT (EXTRACT(year FROM prescricao_venda.data_))))) AS temp1
+            INNER JOIN prescricao_venda
+            ON temp1.data_ = prescricao_venda.data_
+            INNER JOIN venda_farmacia
+            ON temp1.num_venda = venda_farmacia.num_venda 
+            INNER JOIN d_instituicao
+            ON d_instituicao.nome = venda_farmacia.inst) AS temp2;
