@@ -1,7 +1,7 @@
--- DROP TABLE IF EXISTS d_tempo CASCADE;
--- DROP TABLE IF EXISTS d_instituicao CASCADE;
--- DROP TABLE IF EXISTS f_presc_venda CASCADE;
--- DROP TABLE IF EXISTS f_analise CASCADE;
+DROP TABLE IF EXISTS d_tempo CASCADE;
+DROP TABLE IF EXISTS d_instituicao CASCADE;
+DROP TABLE IF EXISTS f_presc_venda CASCADE;
+DROP TABLE IF EXISTS f_analise CASCADE;
 
 CREATE TABLE d_tempo (
     id_tempo SERIAL NOT NULL,
@@ -25,7 +25,8 @@ CREATE TABLE d_instituicao (
     FOREIGN KEY (nome)
         REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (num_concelho, num_regiao)
-        REFERENCES concelho(num_concelho, num_regiao) ON DELETE CASCADE ON UPDATE CASCADE
+        REFERENCES concelho(num_concelho, num_regiao) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(id_inst)
 );
 
 CREATE TABLE f_presc_venda (
@@ -44,11 +45,12 @@ CREATE TABLE f_presc_venda (
     FOREIGN KEY (id_data_registo)
         REFERENCES d_tempo(id_tempo) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_inst)
-        REFERENCES d_instituicao(id_inst) ON DELETE CASCADE ON UPDATE CASCADE
+        REFERENCES d_instituicao(id_inst) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(id_presc_venda)
 );
 
 CREATE TABLE f_analise (
-    id_analise SERIAL NOT NULL,
+    id_analise INT NOT NULL,
     id_medico INT NOT NULL,
     num_doente INT NOT NULL,
     id_data_registo INT NOT NULL,
@@ -63,7 +65,8 @@ CREATE TABLE f_analise (
     FOREIGN KEY (id_data_registo)
         REFERENCES d_tempo(id_tempo) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_inst)
-        REFERENCES d_instituicao(id_inst) ON DELETE CASCADE ON UPDATE CASCADE
+        REFERENCES d_instituicao(id_inst) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(id_analise)
 );
 
 INSERT INTO d_tempo (dia, dia_da_semana, semana, mes, trimestre, ano)
@@ -73,8 +76,8 @@ INSERT INTO d_tempo (dia, dia_da_semana, semana, mes, trimestre, ano)
         EXTRACT(MONTH FROM data_) AS mes,
         FLOOR((EXTRACT(MONTH FROM data_) - 1) / 4) + 1 AS trimestre,
         EXTRACT(YEAR FROM data_) AS ano
-    FROM prescricao
-    ORDER BY dia, dia_da_semana, semana, mes, trimestre, ano;
+    FROM prescricao;
+    -- ORDER BY dia, dia_da_semana, semana, mes, trimestre, ano;
 
 INSERT INTO d_tempo (dia, dia_da_semana, semana, mes, trimestre, ano)
     SELECT EXTRACT(DAY FROM data_) AS dia,
@@ -84,15 +87,18 @@ INSERT INTO d_tempo (dia, dia_da_semana, semana, mes, trimestre, ano)
         FLOOR((EXTRACT(MONTH FROM data_) - 1) / 4) + 1 AS trimestre,
         EXTRACT(YEAR FROM data_) AS ano
     FROM analise
-    ORDER BY dia, dia_da_semana, semana, mes, trimestre, ano;
+    ON CONFLICT (dia, mes, ano) DO NOTHING;
+    -- ORDER BY dia, dia_da_semana, semana, mes, trimestre, ano;
+    
 
 INSERT INTO d_instituicao (nome, tipo, num_regiao, num_concelho)
     SELECT nome, tipo, num_regiao, num_concelho FROM instituicao;
 
-INSERT INTO f_presc_venda (id_medico, num_doente, id_data_registo, id_inst, substancia, quant)
-    SELECT id_medico, num_doente, id_data_registo, id_inst, substancia, quant
+INSERT INTO f_presc_venda (id_presc_venda, id_medico, num_doente, id_data_registo, id_inst, substancia, quant)
+    SELECT id_presc_venda, id_medico, num_doente, id_data_registo, id_inst, substancia, quant
     FROM (SELECT
-        num_cedula AS id_medico, 
+        venda_farmacia.num_venda AS id_presc_venda,
+        num_cedula AS id_medico,
         num_doente,
         id_tempo AS id_data_registo,
         venda_farmacia.substancia AS substancia,
@@ -106,6 +112,37 @@ INSERT INTO f_presc_venda (id_medico, num_doente, id_data_registo, id_inst, subs
             INNER JOIN prescricao_venda
             ON temp1.data_ = prescricao_venda.data_
             INNER JOIN venda_farmacia
-            ON temp1.num_venda = venda_farmacia.num_venda 
+            ON temp1.num_venda = venda_farmacia.num_venda
             INNER JOIN d_instituicao
             ON d_instituicao.nome = venda_farmacia.inst) AS temp2;
+
+-- INSERT INTO f_analise (id_analise, id_medico, num_doente, id_data_registo, id_inst, nome, quant)
+--     SELECT analise.num_analise AS id_analise,
+--         num_cedula AS id_medico,
+--         num_doente,
+--         temp1.id_tempo AS id_data_registo,
+--         id_inst,
+--         analise.nome,
+--         analise.quant
+--         FROM (SELECT analise.num_analise
+--             FROM d_tempo, analise
+--             WHERE (dia = (SELECT(EXTRACT(day FROM analise.data_)))
+--                 AND mes = (SELECT (EXTRACT(month FROM analise.data_)))
+--                 AND ano = (SELECT (EXTRACT(year FROM analise.data_))))) AS temp1
+--         INNER JOIN analise ON analise.num_analise = temp1.num_analise 
+--         INNER JOIN d_instituicao ON analise.inst = d_instituicao.nome;
+
+INSERT INTO f_analise (id_analise, id_medico, num_doente, id_data_registo, id_inst, nome, quant)
+        SELECT analise.num_analise AS id_analise, 
+        analise.num_cedula AS id_medico,
+        num_doente,
+        temp.id_tempo AS id_data_registo,
+        id_inst,
+        analise.nome AS nome,
+        analise.quant AS quant    
+        FROM analise
+        INNER JOIN (SELECT id_tempo, make_date(ano, mes, dia) 
+            FROM d_tempo) AS temp
+        ON analise.data_ = temp.make_date
+        INNER JOIN d_instituicao 
+        ON analise.inst = d_instituicao.nome;

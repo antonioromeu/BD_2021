@@ -83,7 +83,8 @@ CREATE TABLE analise (
     FOREIGN KEY (num_cedula, num_doente, data_)
         REFERENCES consulta(num_cedula, num_doente, data_) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (inst)
-        REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE
+        REFERENCES instituicao(nome) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(num_analise)
 );
 
 CREATE TABLE venda_farmacia (
@@ -108,5 +109,6 @@ CREATE TABLE prescricao_venda (
     FOREIGN KEY (num_venda)
         REFERENCES venda_farmacia(num_venda) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (num_cedula, num_doente, data_, substancia)
-        REFERENCES prescricao(num_cedula, num_doente, data_, substancia) ON DELETE CASCADE ON UPDATE CASCADE
+        REFERENCES prescricao(num_cedula, num_doente, data_, substancia) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(num_venda)
 );
