@@ -15,10 +15,10 @@ app = Flask(__name__)
 
 ## SGBD configs
 DB_HOST="db.tecnico.ulisboa.pt"
-DB_USER="ist192510"
+DB_USER="ist192427"
 DB_DATABASE=DB_USER
-# DB_PASSWORD="gpmi9572"
-DB_PASSWORD="ovyy8087"
+DB_PASSWORD="gpmi9572"
+# DB_PASSWORD="ovyy8087"
 DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_DATABASE, DB_USER, DB_PASSWORD)
 
 ## Runs the function once the root page is requested.
@@ -418,12 +418,12 @@ def analises_glicemia_submit():
         cursor = dbConn.cursor(cursor_factory = psycopg2.extras.DictCursor)
         form = cgi.FieldStorage(environ={'REQUEST_METHOD':'POST'})
         concelho = form["concelho"].value
-        query = "SELECT MAX(quant) FROM analise WHERE inst IN (SELECT nome FROM instituicao WHERE num_concelho = (SELECT num_concelho FROM concelho WHERE nome = %s)) AND nome = 'glicemia';"
+        query = "SELECT MAX(quant) FROM analise WHERE inst IN (SELECT nome FROM instituicao WHERE num_concelho = (SELECT num_concelho FROM concelho WHERE nome = %s)) AND nome = 'Analise de glicemia';"
         data = (concelho,)
         cursor.execute(query, data)
         res = cursor.fetchone()
         maxQuant = res[0]
-        query = "SELECT MIN(quant) FROM analise WHERE inst IN (SELECT nome FROM instituicao WHERE num_concelho = (SELECT num_concelho FROM concelho WHERE nome = %s)) AND nome = 'glicemia';"
+        query = "SELECT MIN(quant) FROM analise WHERE inst IN (SELECT nome FROM instituicao WHERE num_concelho = (SELECT num_concelho FROM concelho WHERE nome = %s)) AND nome = 'Analise de glicemia';"
         data = (concelho,)
         cursor.execute(query, data)
         res = cursor.fetchone()
@@ -431,7 +431,7 @@ def analises_glicemia_submit():
         query = "SELECT * FROM analise \
             WHERE inst IN (SELECT nome FROM instituicao WHERE num_concelho = (SELECT num_concelho FROM concelho WHERE nome = %s)) \
             AND (quant = %s OR quant = %s) \
-            AND nome = 'glicemia';"
+            AND nome = 'Analise de glicemia';"
         data = (concelho, maxQuant, minQuant)
         cursor.execute(query, data)
         return render_template("analises_glicemia_submit.html", cursor = cursor)

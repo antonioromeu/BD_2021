@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS d_tempo;
 DROP TABLE IF EXISTS d_instituicao;
+DROP TABLE IF EXISTS d_tempo;
 DROP TABLE IF EXISTS f_presc_venda;
 DROP TABLE IF EXISTS f_analise;
 
